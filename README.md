@@ -1,3 +1,10 @@
+# CLAUDE-style-Typora-theme
+
+现仓库是基于 blaxisomu/CLAUDE-Typora 项目基础上 fork 优化的。
+下为原仓库README。
+
+
+
 > 该主题是一比一像素级还原Claude官网markdown渲染，该主题和Typora Theme上的山寨claude主题不一样，该主题真正的实现了一比一还原，各位可以利用审查元素对照 `cladue.ai` 上的每一个像素和元素，相似度可以达到99%，所有的配色全部予以还原！
 > 诸君可粘贴任意在claude中生成的内容到typora中，不会看出任何瑕疵，分不清两者，哪怕放大到任意一个像素点都是对齐的，没有夸张的哦。<!--当然，如果你能使用到2026-04以前的claude的话-->
 
