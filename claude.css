@@ -90,17 +90,17 @@ body {
 
     /* 对应typora的侧边栏 */
     --box-shadow-search: 0 0 #0000, 0 0 #0000, 0 25px 50px -12px rgb(0 0 0 / .25);
-    --box-shadow-userinput: 0 .25rem 1.25rem hsl(var(--always-black) / 3.5%), 0 0 0 .5px hsla(var(--border-300) / .15);
-    --box-shadow-userinput-hover: 0 0.25rem 1.25rem hsl(var(--always-black) / 3.5%), 0 0 0 0.5px hsla(var(--border-200) / 0.3);
-    --box-shadow-userinput-focus: 0 0.25rem 1.25rem hsl(var(--always-black) / 7.5%), 0 0 0 0.5px hsla(var(--border-200) / 0.3);
+    --box-shadow-userinput: 0 18px 48px -28px rgb(31 30 29 / 32%), 0 8px 18px -14px rgb(31 30 29 / 18%), 0 0 0 0.5px hsla(var(--border-300) / 0.18);
+    --box-shadow-userinput-hover: 0 22px 58px -30px rgb(31 30 29 / 38%), 0 10px 22px -15px rgb(31 30 29 / 22%), 0 0 0 0.5px hsla(var(--border-200) / 0.28);
+    --box-shadow-userinput-focus: 0 24px 64px -28px rgb(31 30 29 / 44%), 0 12px 26px -14px rgb(31 30 29 / 24%), 0 0 0 0.5px hsla(var(--border-200) / 0.32);
 
     /* --- 字体变量 --- */
     --font-serif: "Anthropic Serif Web Text", Georgia, "Times New Roman", "Noto Serif SC";
     --font-sans: "Anthropic Sans Web Text", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     --font-mono: "Anthropic Mono Variable", ui-monospace, monospace;
 
-    --font-weight: 360;
-    --font-strong: 530;
+    --font-weight: 400;
+    --font-strong: 700;
     --pre-inputfont-weight: 430;
     --sidebar-font-weight: 430;
 
@@ -899,6 +899,21 @@ blockquote ul {
     color: inherit;
 }
 
+/* Alert code blocks should use one surface; CodeMirror internals must not add a second tint. */
+#write .md-alert .md-fences .CodeMirror,
+#write .md-alert .md-fences .CodeMirror-scroll,
+#write .md-alert .md-fences .CodeMirror-sizer,
+#write .md-alert .md-fences .CodeMirror-lines,
+#write .md-alert .md-fences .CodeMirror-code,
+#write .md-alert .md-fences .CodeMirror-line,
+#write .md-alert .md-fences .CodeMirror pre,
+#write .md-alert .md-fences .CodeMirror-activeline-background,
+#write .md-alert .md-fences .CodeMirror-linebackground,
+#write .md-alert .md-fences .CodeMirror-gutters {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
 /* ---------- 6.11 公式块 ---------- */
 
 .md-rawblock-container.md-math-container > .MathJax {
@@ -933,19 +948,21 @@ blockquote ul {
 }
 
 sup.md-footnote {
-    padding: 0 0.18rem !important;
+    display: inline-block;
+    padding: 0 !important;
     color: #8a3f27 !important;
-    background: #efe6d8 !important;
-    border: 1px solid #d9775733 !important;
-    border-radius: 0.25rem !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
     font-family: var(--font-sans) !important;
     font-size: 0.52em !important;
     font-weight: 500;
-    line-height: 1.15 !important;
+    line-height: 1 !important;
     position: relative;
-    top: -0.36em;
+    top: -1.2em;
     margin-left: 0.04em;
-    vertical-align: super !important;
+    vertical-align: baseline !important;
+    white-space: nowrap;
     transition:
         background-color 0.12s ease-out,
         border-color 0.12s ease-out,
@@ -954,8 +971,8 @@ sup.md-footnote {
 
 sup.md-footnote:hover {
     color: #71301d !important;
-    background: #e8d9c6 !important;
-    border-color: #d9775780 !important;
+    background: transparent !important;
+    border-color: transparent !important;
 }
 
 /* 脚注悬浮提示使用 Typora 的 code-tooltip 结构，避免继承代码块语言标签定位 */
@@ -1098,7 +1115,9 @@ a:hover {
 }
 
 #typora-sidebar:focus-within,
-#typora-sidebar:hover:focus-within {
+#typora-sidebar:hover:focus-within,
+#typora-sidebar:has(input:focus),
+#typora-sidebar:hover:has(input:focus) {
     box-shadow: var(--box-shadow-userinput-focus) !important;
 }
 
@@ -1107,6 +1126,23 @@ a:hover {
 /* 去除侧边栏底栏的边框 */
 #ty-sidebar-footer {
     border: none;
+    background-clip: padding-box;
+}
+
+#ty-sidebar-footer > div {
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+    background-clip: padding-box;
+}
+
+#sidebar-new-file-btn {
+    border-bottom-left-radius: 15px !important;
+    background-clip: padding-box;
+}
+
+#switch-file-list-btn {
+    border-bottom-right-radius: 15px !important;
+    background-clip: padding-box;
 }
 
 /* 创建或重命名节点时的输入框、搜索框 */
@@ -1136,17 +1172,25 @@ a:hover {
     border: 1px solid rgba(31, 30, 29, 0.12);
     border-radius: 999px;
     background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.48), rgba(255, 255, 255, 0.16)),
-        rgba(232, 230, 220, 0.34);
+        radial-gradient(circle at 16% 14%, rgba(255, 255, 255, 0.50), transparent 34%),
+        radial-gradient(ellipse at 18% 68%, rgba(198, 205, 190, 0.16), transparent 54%),
+        radial-gradient(ellipse at 42% 74%, rgba(217, 119, 87, 0.045), transparent 62%),
+        radial-gradient(circle at 76% 78%, rgba(217, 119, 87, 0.035), transparent 48%),
+        linear-gradient(100deg, rgba(229, 226, 210, 0.18), rgba(236, 239, 232, 0.22) 52%, rgba(255, 242, 234, 0.10)),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.50), rgba(236, 239, 232, 0.20) 58%, rgba(255, 248, 244, 0.12)),
+        rgba(232, 230, 220, 0.24);
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.58),
-        0 2px 18px rgba(31, 30, 29, 0.06);
-    backdrop-filter: blur(12px) saturate(1.25);
-    -webkit-backdrop-filter: blur(12px) saturate(1.25);
-    overflow: hidden;
+        inset 0 1px 0 rgba(255, 255, 255, 0.76),
+        inset 0 -1px 0 rgba(31, 30, 29, 0.05),
+        0 8px 26px rgba(31, 30, 29, 0.08),
+        0 1px 2px rgba(31, 30, 29, 0.06);
+    backdrop-filter: blur(16px) saturate(1.45);
+    -webkit-backdrop-filter: blur(16px) saturate(1.45);
+    overflow: visible;
     transform: translateX(-50%);
     transition: border-color 0.18s ease, background-color 0.18s ease;
     box-sizing: border-box;
+    z-index: 20;
 }
 
 .info-panel-tab-wrapper > div[style*="flex"] {
@@ -1163,14 +1207,40 @@ a:hover {
     height: 28px;
     border-radius: 999px;
     background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.28)),
-        rgba(250, 249, 245, 0.7);
+        linear-gradient(112deg, transparent 0 18%, rgba(176, 184, 174, 0.10) 19%, transparent 31%),
+        linear-gradient(150deg, transparent 0 54%, rgba(214, 209, 194, 0.14) 55%, transparent 68%),
+        linear-gradient(90deg, rgba(198, 210, 196, 0.18), transparent 24px),
+        radial-gradient(circle at 8% 52%, rgba(226, 229, 218, 0.16), transparent 42%),
+        radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.78), transparent 35%),
+        radial-gradient(circle at 74% 82%, rgba(205, 211, 199, 0.13), transparent 54%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.66), rgba(239, 241, 232, 0.38) 48%, rgba(232, 229, 216, 0.22)),
+        rgba(246, 246, 239, 0.56);
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.72),
-        inset 0 -1px 0 rgba(31, 30, 29, 0.04),
-        0 4px 12px rgba(31, 30, 29, 0.08);
+        inset 0 1px 1px rgba(255, 255, 255, 0.86),
+        inset 1px 0 2px rgba(178, 190, 176, 0.14),
+        inset 0 -1px 2px rgba(31, 30, 29, 0.08),
+        inset 0 0 0 0.5px rgba(255, 255, 255, 0.58),
+        0 7px 18px rgba(31, 30, 29, 0.10),
+        0 1px 2px rgba(31, 30, 29, 0.08);
     transform: translateX(0);
     transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.18s ease;
+    z-index: 0;
+}
+
+.info-panel-tab-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 13px;
+    width: 34px;
+    height: 9px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0));
+    filter: blur(0.4px);
+    opacity: 0.78;
+    pointer-events: none;
+    transform: translateX(0);
+    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.18s ease;
     z-index: 0;
 }
 
@@ -1178,7 +1248,15 @@ a:hover {
     transform: translateX(86px);
 }
 
+.active-tab-outline .info-panel-tab-wrapper::after {
+    transform: translateX(86px);
+}
+
 .ty-show-search .info-panel-tab-wrapper::before {
+    display: none;
+}
+
+.ty-show-search .info-panel-tab-wrapper::after {
     display: none;
 }
 
@@ -1250,14 +1328,14 @@ a:hover {
     border-bottom-color: var(--border-color-15);
 }
 
-/* 隐藏文件列表里的 .md 后缀 */
+/* 隐藏md后缀 */
 .file-list-item-file-ext-part {
     display: none;
 }
 
-/* 文件列表激活项标题颜色 */
+/* 激活项标题颜色 */
 .file-list-item.active {
-    color: var(--LOGO-color) !important;
+    color: #756420 !important;
 }
 
 /* ---------- 7.6 文件树 ---------- */
@@ -1559,19 +1637,27 @@ a:hover {
     font-family: var(--font-mono);
     font-size: 0.82rem;
     line-height: 1.65;
-    color: #4a321f;
+    color: rgba(74, 50, 31, 0.78);
     background:
-        linear-gradient(90deg, transparent 0 2.1rem, rgba(129, 76, 34, 0.24) 2.1rem 2.16rem, transparent 2.16rem),
-        repeating-linear-gradient(0deg, transparent 0 1.58rem, rgba(108, 70, 40, 0.13) 1.58rem 1.63rem),
-        radial-gradient(circle at 18% 20%, rgba(255, 248, 217, 0.36), transparent 28%),
-        linear-gradient(135deg, #d9b982 0%, #c79b5f 50%, #e2c892 100%);
-    border: 1px solid rgba(117, 73, 36, 0.45);
-    border-radius: 6px;
+        linear-gradient(to right, rgba(117, 73, 36, 0.24) 0 8px, transparent 8px 15px) left top / 15px 1.5px repeat-x,
+        linear-gradient(to right, rgba(117, 73, 36, 0.24) 0 8px, transparent 8px 15px) left bottom / 15px 1.5px repeat-x,
+        linear-gradient(to bottom, rgba(117, 73, 36, 0.24) 0 8px, transparent 8px 15px) left top / 1.5px 15px repeat-y,
+        linear-gradient(to bottom, rgba(117, 73, 36, 0.24) 0 8px, transparent 8px 15px) right top / 1.5px 15px repeat-y,
+        linear-gradient(90deg, transparent 0 2.1rem, rgba(129, 76, 34, 0.12) 2.1rem 2.16rem, transparent 2.16rem),
+        repeating-linear-gradient(0deg, transparent 0 1.58rem, rgba(108, 70, 40, 0.07) 1.58rem 1.63rem),
+        radial-gradient(circle at 18% 18%, rgba(255, 247, 214, 0.58), transparent 32%),
+        radial-gradient(circle at 86% 0%, rgba(199, 139, 62, 0.14), transparent 34%),
+        linear-gradient(135deg, rgba(255, 244, 206, 0.68), rgba(229, 205, 148, 0.36));
+    border: 1px solid transparent;
+    border-radius: 10px;
     box-shadow:
-        0 12px 24px rgba(55, 38, 22, 0.12),
-        inset 0 0 0 1px rgba(255, 247, 219, 0.38);
+        0 6px 18px rgba(55, 38, 22, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.72),
+        inset 0 0 0 1px rgba(255, 247, 219, 0.18);
     margin-top: 0 !important;
-    text-shadow: 0 1px 0 rgba(255, 245, 215, 0.35);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.28);
+    -webkit-backdrop-filter: blur(10px) saturate(1.04);
+    backdrop-filter: blur(10px) saturate(1.04);
 }
 
 #write pre.md-meta-block::before {
@@ -1585,8 +1671,8 @@ a:hover {
     font-size: 0.68rem;
     font-weight: 700;
     line-height: 1;
-    color: #6f431f;
-    border-bottom: 1px solid rgba(116, 70, 31, 0.24);
+    color: rgba(111, 67, 31, 0.62);
+    border-bottom: 1px solid rgba(116, 70, 31, 0.13);
 }
 
 #write pre.md-meta-block::after {
@@ -1595,12 +1681,12 @@ a:hover {
     inset: 0;
     pointer-events: none;
     background-image:
-        radial-gradient(circle at 12% 28%, rgba(98, 57, 24, 0.08) 0 1px, transparent 1.5px),
-        radial-gradient(circle at 76% 42%, rgba(255, 245, 209, 0.24) 0 1px, transparent 1.6px),
-        radial-gradient(circle at 46% 80%, rgba(94, 58, 30, 0.07) 0 1px, transparent 1.4px);
-    background-size: 18px 22px, 24px 20px, 31px 28px;
-    mix-blend-mode: multiply;
-    opacity: 0.8;
+        radial-gradient(circle at 13% 28%, rgba(255, 255, 255, 0.54) 0 1px, transparent 2.2px),
+        radial-gradient(circle at 76% 42%, rgba(255, 255, 255, 0.34) 0 1.2px, transparent 2.8px),
+        radial-gradient(circle at 46% 80%, rgba(117, 73, 36, 0.045) 0 1px, transparent 2.4px);
+    background-size: 22px 26px, 30px 24px, 34px 30px;
+    mix-blend-mode: soft-light;
+    opacity: 0.62;
 }
 
 /* =========================================

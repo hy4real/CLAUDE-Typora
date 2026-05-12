@@ -88,9 +88,9 @@ html, body {
     --border-300: 51 16.5% 84.5%;
     --always-black: 0 0% 0%;
     --box-shadow-search: 0 0 #0000, 0 0 #0000, 0 25px 50px -12px rgb(0 0 0 / .25);
-    --box-shadow-userinput: 0 .25rem 1.25rem hsl(var(--always-black) / 3.5%), 0 0 0 .5px hsla(var(--border-300) / .15);
-    --box-shadow-userinput-hover: 0 0.25rem 1.25rem hsl(var(--always-black) / 3.5%), 0 0 0 0.5px hsla(var(--border-200) / 0.3);
-    --box-shadow-userinput-focus: 0 0.25rem 1.25rem hsl(var(--always-black) / 7.5%), 0 0 0 0.5px hsla(var(--border-200) / 0.3);
+    --box-shadow-userinput: 0 20px 52px -26px rgb(0 0 0 / 58%), 0 8px 20px -14px rgb(0 0 0 / 42%), 0 0 0 0.5px hsla(var(--border-300) / 0.18);
+    --box-shadow-userinput-hover: 0 24px 62px -28px rgb(0 0 0 / 66%), 0 10px 24px -14px rgb(0 0 0 / 48%), 0 0 0 0.5px hsla(var(--border-200) / 0.28);
+    --box-shadow-userinput-focus: 0 26px 68px -28px rgb(0 0 0 / 72%), 0 12px 28px -14px rgb(0 0 0 / 54%), 0 0 0 0.5px hsla(var(--border-200) / 0.32);
 
     /*--- Font ---*/
     --font-serif: "Anthropic Serif Web Text", Georgia, "Times New Roman", "Noto Serif SC";
@@ -327,6 +327,7 @@ body {
 
 #write strong {
     font-weight: var(--font-strong);
+    color: #E6987D;
 }
 
 /*--- Hide bold/italic markdown markers ---*/
@@ -639,19 +640,21 @@ hr {
 }
 
 sup.md-footnote {
-    padding: 0 0.18rem !important;
+    display: inline-block;
+    padding: 0 !important;
     color: #f0a486 !important;
-    background: #3a342e !important;
-    border: 1px solid #d9775752 !important;
-    border-radius: 0.25rem !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
     font-family: var(--font-sans) !important;
     font-size: 0.52em !important;
     font-weight: 500;
-    line-height: 1.15 !important;
+    line-height: 1 !important;
     position: relative;
-    top: -0.36em;
+    top: -1.2em;
     margin-left: 0.04em;
-    vertical-align: super !important;
+    vertical-align: baseline !important;
+    white-space: nowrap;
     transition:
         background-color 0.12s ease-out,
         border-color 0.12s ease-out,
@@ -660,8 +663,8 @@ sup.md-footnote {
 
 sup.md-footnote:hover {
     color: #ffbd9f !important;
-    background: #463a31 !important;
-    border-color: #d9775799 !important;
+    background: transparent !important;
+    border-color: transparent !important;
 }
 
 /* Footnote hover tips reuse Typora's code-tooltip markup; keep them out of code-block label positioning. */
@@ -824,7 +827,7 @@ sup.md-footnote:hover {
 }
 
 .md-fences .cm-def {
-    color: #79b8ff !important;
+    color: #0051c2;
 }
 
 .md-fences .cm-variable-2,
@@ -986,6 +989,21 @@ blockquote ol, blockquote ul {
     color: inherit;
 }
 
+/* Alert code blocks should use one surface; CodeMirror internals must not add a second tint. */
+#write .md-alert .md-fences .CodeMirror,
+#write .md-alert .md-fences .CodeMirror-scroll,
+#write .md-alert .md-fences .CodeMirror-sizer,
+#write .md-alert .md-fences .CodeMirror-lines,
+#write .md-alert .md-fences .CodeMirror-code,
+#write .md-alert .md-fences .CodeMirror-line,
+#write .md-alert .md-fences .CodeMirror pre,
+#write .md-alert .md-fences .CodeMirror-activeline-background,
+#write .md-alert .md-fences .CodeMirror-linebackground,
+#write .md-alert .md-fences .CodeMirror-gutters {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
 /* =========================================
    Math Blocks
    ========================================= */
@@ -1048,6 +1066,11 @@ a:hover {
     text-decoration-color: #E6987D;
 }
 
+#write a:hover {
+    color: #D4B06D;
+    text-decoration-color: #D4B06D;
+}
+
 /* =========================================
    Sidebar
    ========================================= */
@@ -1096,7 +1119,9 @@ a:hover {
 }
 
 #typora-sidebar:focus-within,
-#typora-sidebar:hover:focus-within {
+#typora-sidebar:hover:focus-within,
+#typora-sidebar:has(input:focus),
+#typora-sidebar:hover:has(input:focus) {
     box-shadow: var(--box-shadow-userinput-focus) !important;
 }
 
@@ -1105,6 +1130,31 @@ a:hover {
     border: none;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
+    background-clip: padding-box;
+}
+
+#ty-sidebar-footer > div {
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+    background-clip: padding-box;
+}
+
+#sidebar-new-file-btn {
+    border-bottom-left-radius: 15px !important;
+    background-clip: padding-box;
+}
+
+#switch-file-list-btn {
+    border-bottom-right-radius: 15px !important;
+    background-clip: padding-box;
+}
+
+#sidebar-files-menu {
+    border-color: #dedcd126 !important;
+}
+
+#sidebar-files-menu > .show + .menuitem-group-label.show {
+    border-color: #dedcd126 !important;
 }
 
 /*--- Inputs ---*/
@@ -1139,10 +1189,11 @@ a:hover {
         0 2px 18px rgba(0, 0, 0, 0.18);
     backdrop-filter: blur(12px) saturate(1.25);
     -webkit-backdrop-filter: blur(12px) saturate(1.25);
-    overflow: hidden;
+    overflow: visible;
     transform: translateX(-50%);
     transition: border-color 0.18s ease, background-color 0.18s ease;
     box-sizing: border-box;
+    z-index: 20;
 }
 
 .info-panel-tab-wrapper > div[style*="flex"] {
@@ -1245,7 +1296,7 @@ a:hover {
 }
 
 .file-list-item.active {
-    color: #fff4c8eb !important;
+    color: #fff4c8 !important;
 }
 
 /*--- File Tree ---*/
@@ -1507,19 +1558,27 @@ a:hover {
     font-family: var(--font-mono);
     font-size: 0.82rem;
     line-height: 1.65;
-    color: #ead8ae;
+    color: rgba(234, 216, 174, 0.76);
     background:
-        linear-gradient(90deg, transparent 0 2.1rem, rgba(224, 168, 92, 0.34) 2.1rem 2.16rem, transparent 2.16rem),
-        repeating-linear-gradient(0deg, transparent 0 1.58rem, rgba(225, 179, 110, 0.16) 1.58rem 1.63rem),
-        radial-gradient(circle at 18% 20%, rgba(250, 214, 141, 0.15), transparent 28%),
-        linear-gradient(135deg, #70512f 0%, #5b3d25 48%, #8a663a 100%);
-    border: 1px solid rgba(225, 179, 110, 0.35);
-    border-radius: 6px;
+        linear-gradient(to right, rgba(225, 179, 110, 0.22) 0 8px, transparent 8px 15px) left top / 15px 1.5px repeat-x,
+        linear-gradient(to right, rgba(225, 179, 110, 0.22) 0 8px, transparent 8px 15px) left bottom / 15px 1.5px repeat-x,
+        linear-gradient(to bottom, rgba(225, 179, 110, 0.22) 0 8px, transparent 8px 15px) left top / 1.5px 15px repeat-y,
+        linear-gradient(to bottom, rgba(225, 179, 110, 0.22) 0 8px, transparent 8px 15px) right top / 1.5px 15px repeat-y,
+        linear-gradient(90deg, transparent 0 2.1rem, rgba(224, 168, 92, 0.16) 2.1rem 2.16rem, transparent 2.16rem),
+        repeating-linear-gradient(0deg, transparent 0 1.58rem, rgba(225, 179, 110, 0.075) 1.58rem 1.63rem),
+        radial-gradient(circle at 18% 18%, rgba(255, 232, 178, 0.10), transparent 32%),
+        radial-gradient(circle at 86% 0%, rgba(217, 151, 87, 0.08), transparent 34%),
+        linear-gradient(135deg, rgba(250, 249, 245, 0.075), rgba(250, 249, 245, 0.035));
+    border: 1px solid transparent;
+    border-radius: 10px;
     box-shadow:
-        0 14px 28px rgba(0, 0, 0, 0.28),
-        inset 0 0 0 1px rgba(255, 222, 160, 0.13);
+        0 6px 18px rgba(0, 0, 0, 0.14),
+        inset 0 1px 0 rgba(255, 232, 178, 0.12),
+        inset 0 0 0 1px rgba(255, 222, 160, 0.055);
     margin-top: 0 !important;
-    text-shadow: 0 1px 0 rgba(32, 22, 14, 0.7);
+    text-shadow: 0 1px 0 rgba(32, 22, 14, 0.34);
+    -webkit-backdrop-filter: blur(10px) saturate(1.04);
+    backdrop-filter: blur(10px) saturate(1.04);
 }
 
 #write pre.md-meta-block::before {
@@ -1533,8 +1592,8 @@ a:hover {
     font-size: 0.68rem;
     font-weight: 700;
     line-height: 1;
-    color: #ffd796;
-    border-bottom: 1px solid rgba(255, 215, 150, 0.28);
+    color: rgba(255, 215, 150, 0.62);
+    border-bottom: 1px solid rgba(255, 215, 150, 0.13);
 }
 
 #write pre.md-meta-block::after {
@@ -1543,12 +1602,12 @@ a:hover {
     inset: 0;
     pointer-events: none;
     background-image:
-        radial-gradient(circle at 12% 28%, rgba(30, 18, 10, 0.18) 0 1px, transparent 1.5px),
-        radial-gradient(circle at 76% 42%, rgba(255, 223, 158, 0.15) 0 1px, transparent 1.6px),
-        radial-gradient(circle at 46% 80%, rgba(32, 20, 12, 0.14) 0 1px, transparent 1.4px);
-    background-size: 18px 22px, 24px 20px, 31px 28px;
-    mix-blend-mode: soft-light;
-    opacity: 0.9;
+        radial-gradient(circle at 13% 28%, rgba(255, 232, 178, 0.13) 0 1px, transparent 2.2px),
+        radial-gradient(circle at 76% 42%, rgba(255, 245, 209, 0.10) 0 1.2px, transparent 2.8px),
+        radial-gradient(circle at 46% 80%, rgba(255, 215, 150, 0.075) 0 1px, transparent 2.4px);
+    background-size: 22px 26px, 30px 24px, 34px 30px;
+    mix-blend-mode: screen;
+    opacity: 0.55;
 }
 
 /* =========================================
