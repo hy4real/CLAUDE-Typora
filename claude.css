@@ -393,11 +393,10 @@ span[md-inline="highlight"] mark,
 
 /* 统一下划线颜色 */
 span[md-inline="underline"] u {
-    /* 设置直线下划线，颜色统一为 #D97757 */
-    text-decoration: underline solid #D97757 !important;  
+    text-decoration: underline solid var(--font-color) !important;
 
     /* 保持和高亮一样的文字间距，视觉更统一 */
-    text-underline-offset: 3px; 
+    text-underline-offset: 3px;
 }
 
 /* ---------- 6.3 有序列表和无序列表 ---------- */
@@ -971,6 +970,50 @@ blockquote ul {
 
 .md-rawblock-container.md-math-container > .MathJax {
     margin: 0 !important;
+}
+
+@media screen {
+    #write .md-inline-math,
+    #write .md-mathjax-midline {
+        font-size: 0.96em !important;
+        line-height: 1 !important;
+        vertical-align: -0.02em;
+    }
+
+    #write .md-inline-math mjx-container,
+    #write .md-inline-math .MathJax,
+    #write .md-inline-math .MathJax_SVG,
+    #write .md-inline-math svg,
+    #write .md-mathjax-midline mjx-container,
+    #write .md-mathjax-midline .MathJax,
+    #write .md-mathjax-midline .MathJax_SVG,
+    #write .md-mathjax-midline svg {
+        transform-origin: center baseline;
+        vertical-align: -0.02em;
+    }
+
+    #write .md-math-block .md-math-container,
+    #write .md-math-block .MathJax_Display,
+    #write .mathjax-block .md-math-container,
+    #write .mathjax-block .MathJax_Display,
+    #write .md-rawblock-container.md-math-container {
+        font-size: 0.98em !important;
+    }
+
+    #write .md-math-block mjx-container,
+    #write .md-math-block .MathJax,
+    #write .md-math-block .MathJax_SVG,
+    #write .md-math-block svg,
+    #write .mathjax-block mjx-container,
+    #write .mathjax-block .MathJax,
+    #write .mathjax-block .MathJax_SVG,
+    #write .mathjax-block svg,
+    #write .md-rawblock-container.md-math-container mjx-container,
+    #write .md-rawblock-container.md-math-container .MathJax,
+    #write .md-rawblock-container.md-math-container .MathJax_SVG,
+    #write .md-rawblock-container.md-math-container svg {
+        transform-origin: center center;
+    }
 }
 
 /* claude的简单渐入渐出动画 */
@@ -2286,7 +2329,7 @@ li > .outline-item:hover::before,
     .write a {
         color: var(--font-color) !important;
         text-decoration: underline;
-        text-decoration-color: var(--LOGO-color);
+        text-decoration-color: var(--font-color) !important;
         text-underline-offset: 2px;
     }
 
