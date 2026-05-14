@@ -1,8 +1,12 @@
 # CLAUDE-style-Typora-theme
 
-本仓库基于 blaxisomu/CLAUDE-Typora 项目 fork 优化，并以本地版本为主线合入上游 V6.0 的视觉与 bugfix 更新。
+本仓库基于 blaxisomu/CLAUDE-Typora 项目 fork 优化，并以本地版本为主线合入上游 V7.0 的视觉与 bugfix 更新。
 
 本地版本保留了额外的 PDF/export 稳定性修复和 macOS 侧边栏避让修复。
+
+> [!CAUTION]
+>
+> V7.0 涉及一体化窗口和侧边栏收展相关调整。macOS 用户如果依赖当前窗口避让、侧边栏或一体化显示效果，建议更新前先备份现有主题文件。
 
 ---
 灵感来源：https://claude.ai
