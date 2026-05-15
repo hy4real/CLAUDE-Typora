@@ -9,7 +9,7 @@
 
 * {
     box-sizing: border-box;
-    outline-color: #2c84db;
+    outline-color: #D97757;
 }
 
 *,
@@ -93,16 +93,15 @@ body {
     --box-shadow-userinput: 0 18px 48px -28px rgb(31 30 29 / 32%), 0 8px 18px -14px rgb(31 30 29 / 18%), 0 0 0 0.5px hsla(var(--border-300) / 0.18);
     --box-shadow-userinput-hover: 0 22px 58px -30px rgb(31 30 29 / 38%), 0 10px 22px -15px rgb(31 30 29 / 22%), 0 0 0 0.5px hsla(var(--border-200) / 0.28);
     --box-shadow-userinput-focus: 0 24px 64px -28px rgb(31 30 29 / 44%), 0 12px 26px -14px rgb(31 30 29 / 24%), 0 0 0 0.5px hsla(var(--border-200) / 0.32);
-
     /* --- 字体变量 --- */
     --font-serif: "Anthropic Serif Web Text", Georgia, "Times New Roman", "Noto Serif SC";
     --font-sans: "Anthropic Sans Web Text", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     --font-mono: "Anthropic Mono Variable", ui-monospace, monospace;
 
-    --font-weight: 400;
-    --font-strong: 700;
-    --pre-inputfont-weight: 430;
-    --sidebar-font-weight: 430;
+    --font-weight: 360;
+    --font-strong: 530;
+    --pre-inputfont-weight: 400;
+    --sidebar-font-weight: 400;
 
     /* --- 圆角变量（仅备注） --- */
     --raduis-8: 8px;
@@ -134,17 +133,74 @@ body {
 }
 
 /* 设置界面激活列表项的背景颜色 */
-.pane-sm.sidebar .nav-group-item.active {
+.pane-group .nav-group-item.active {
     background-color: var(--hover-color) !important;
+}
+
+.nav-group-item:active {
+    background-color: var(--hover-color)!important;
+}
+
+.pane-group .nav-group-item {
+    border-radius: 7px!important;
+}
+
+.pane-group .export-detail .input-group-content {
+    border-color: transparent!important;
+}
+
+.export-detail textarea {
+    border-radius: 5px!important;
+    background-color: var(--border-color-30)!important;
+}
+
+.export-detail textarea:focus {
+    border-color: #d97757!important;
+}
+
+.export-items-list .separator {
+    border-color: var(--border-color-30)!important;
 }
 
 /* 导出窗口 */
 .export-detail {
-    background-color: var(--hover-color)!important;
+    background: transparent!important;
 }
 
 .export-item.active {
     background-color: var(--hover-color)!important;
+}
+
+.export-items-list-control {
+    background: none!important;
+}
+
+.pane-sm.sidebar  .search-input {
+    border-color: #D97757!important;
+    border-radius: 20px!important;
+}
+
+.pane-group button.btn-default {
+    border-radius: 5px!important;
+    border-color: var(--border-color-15)!important;
+}
+
+.pane-group button.btn-default:hover {
+    border-color:transparent!important;
+}
+
+.pane-group .input-group-content {
+    padding: 24px 30px 24px 16px!important;
+    border: 1px solid var(--border-color-15)!important;
+    border-radius: 13px!important;
+}
+
+.pane-group .input-group-header-title {
+    color: #d97757 !important;
+}
+
+.pane-group input:not([type="range"]):not([type="color"]) {
+    border-radius: 4px!important;
 }
 
 /* =========================================
@@ -162,17 +218,6 @@ body {
     --side-bar-bg-color: var(--bg-color);
 }
 
-.typora-export,
-.typora-export html,
-.typora-export body,
-.typora-export #content,
-.typora-export #write,
-.typora-export .write {
-    background: var(--bg-color) !important;
-    background-color: var(--bg-color) !important;
-    background-image: none !important;
-}
-
 /* 实际书写区 */
 #write {
     font-family: var(--font-serif);
@@ -187,9 +232,16 @@ body {
 
 /* ---------- 右键菜单 ---------- */
 
+#context-menu li[data-group="search"][data-key="search-default"] *,
+#context-menu li[data-group="search"][data-key="search-default"],
+#context-menu li[data-group="search"][data-key="search-default"] > a {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
 /* 隐藏提示 */
 .ty-tooltip.shown {
-    display: none !important;
+    display: none!important;
 }
 
 /* 右键菜单阴影 */
@@ -259,15 +311,15 @@ body {
 
 /* 隐藏右键菜单栏的内容分割线 */
 .dropdown-menu .divider {
-    border-top: none !important;
+    border-top: none!important;
 }
 
 /* 隐藏右键菜单的按钮边框阴影 */
 .menu-item-container a.menu-style-btn {
-    box-shadow: none !important;
+    box-shadow: none!important;
 }
 
-.context-menu.dropdown-menu > li > a {
+.context-menu.dropdown-menu>li>a {
     color: var(--text-color);
 }
 
@@ -302,6 +354,16 @@ body {
 /* 去除编辑区底栏的上边框 */
 .show-footer footer.ty-footer {
     border-top-width: 0 !important;
+}
+
+li.folder-menu-item.file-action-item:hover,
+li.folder-menu-item.file-action-item:hover > a,
+li.folder-menu-item.file-action-item:hover > a *,
+li.folder-menu-item.file-action-item.selected-folder-menu-item:hover,
+li.folder-menu-item.file-action-item.selected-folder-menu-item:hover > a {
+    background: none !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
 }
 
 /* =========================================
@@ -364,8 +426,8 @@ body {
 
 /* 修改普通文本的选中高亮颜色 */
 ::selection {
-    background-color: var(--LOGO-color) !important;
-    color: var(--font-color) !important;
+    background: rgba(142, 164, 255, 0.30);
+    color: #131314;
 }
 
 /* ---------- Typora 隐藏加粗/斜体星号标记 ---------- */
@@ -407,10 +469,11 @@ span[md-inline="highlight"] mark,
 
 /* 统一下划线颜色 */
 span[md-inline="underline"] u {
-    text-decoration: underline solid var(--font-color) !important;
+    /* 设置直线下划线，颜色统一为 #D97757 */
+    text-decoration: underline solid #D97757 !important;  
 
     /* 保持和高亮一样的文字间距，视觉更统一 */
-    text-underline-offset: 3px;
+    text-underline-offset: 3px; 
 }
 
 /* ---------- 6.3 有序列表和无序列表 ---------- */
@@ -439,8 +502,14 @@ span[md-inline="underline"] u {
 }
 
 .write > ul ul,
-markdown > ol ol {
+.write > ol ol {
     padding: 0 2rem 0.25rem 2rem;
+    margin: 0.25rem 0 0 0;
+}
+
+.write > ul ol,
+.write > ol ul {
+    padding: 0 2rem 0 2rem;
     margin: 0.25rem 0 0 0;
 }
 
@@ -551,6 +620,95 @@ markdown > ol ol {
 
 .ty-table-edit .btn-group-xs>.btn {
     border: none;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: var(--font-color) !important;
+    opacity: 0.46;
+    transition: color 0.16s ease, opacity 0.16s ease;
+}
+
+.ty-table-edit .btn-group-xs>.btn:hover,
+.ty-table-edit .btn-group-xs>.btn:focus,
+.ty-table-edit .btn-group-xs>.btn:active {
+    background: transparent !important;
+    box-shadow: none !important;
+    color: var(--LOGO-color) !important;
+    opacity: 1;
+}
+
+.ty-table-edit .btn-group-xs>.btn .ty-icon,
+.ty-table-edit .btn-group-xs>.btn i,
+.ty-table-edit .btn-group-xs>.btn svg {
+    color: inherit !important;
+    fill: currentColor !important;
+    stroke: currentColor !important;
+}
+
+.md-table-resize-popover .md-grid-board-wrap {
+    width: auto !important;
+    height: auto !important;
+    min-width: 0 !important;
+    overflow: visible !important;
+    text-align: center !important;
+}
+
+.md-table-resize-popover.popover {
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 25px 50px -12px rgb(0 0 0 / .25), 0 -8px 30px -6px rgb(0 0 0 / .15) !important;
+    transform-origin: 20px top;
+    animation: claude-context-menu-in 120ms cubic-bezier(.16, 1, .3, 1) both;
+    will-change: opacity, transform;
+}
+
+.md-table-resize-popover .md-grid-board {
+    width: auto !important;
+    min-width: 0 !important;
+    margin: 0 auto !important;
+    border: none !important;
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+    table-layout: fixed !important;
+    line-height: normal !important;
+}
+
+.md-table-resize-popover .md-grid-board th,
+.md-table-resize-popover .md-grid-board td {
+    width: auto !important;
+    min-width: 0 !important;
+    height: auto !important;
+    padding: 0 !important;
+    border: none !important;
+    line-height: normal !important;
+}
+
+.md-table-resize-popover .md-grid-board tr[row='1'] {
+    background: transparent !important;
+}
+
+.md-table-resize-popover .md-grid-board .md-grid-ext {
+    background: rgba(217, 119, 87, 0.22) !important;
+}
+
+.md-table-resize-popover .md-grid-board tr[row='1'] .md-grid-ext {
+    background: rgba(217, 119, 87, 0.32) !important;
+}
+
+.md-table-resize-popover .md-grid-board a {
+    border-color: rgba(31, 30, 29, 0.22) !important;
+}
+
+.md-table-resize-popover .md-grid-board a.md-active,
+.md-table-resize-popover .md-grid-board a:hover {
+    border-color: var(--LOGO-color) !important;
+    background: rgba(217, 119, 87, 0.22) !important;
+}
+
+.md-table-resize-popover .popover-title {
+    margin-top: 6px !important;
+    text-align: center !important;
+}
+
+.md-table-resize-popover .md-grid-board-wrap .popover-title {
+    border-top: var(--border-color-30)!important;
 }
 
 /* 紧挨着表格容器的标题去除底部外间距 */
@@ -986,50 +1144,6 @@ blockquote ul {
     margin: 0 !important;
 }
 
-@media screen {
-    #write .md-inline-math,
-    #write .md-mathjax-midline {
-        font-size: 0.96em !important;
-        line-height: 1 !important;
-        vertical-align: -0.02em;
-    }
-
-    #write .md-inline-math mjx-container,
-    #write .md-inline-math .MathJax,
-    #write .md-inline-math .MathJax_SVG,
-    #write .md-inline-math svg,
-    #write .md-mathjax-midline mjx-container,
-    #write .md-mathjax-midline .MathJax,
-    #write .md-mathjax-midline .MathJax_SVG,
-    #write .md-mathjax-midline svg {
-        transform-origin: center baseline;
-        vertical-align: -0.02em;
-    }
-
-    #write .md-math-block .md-math-container,
-    #write .md-math-block .MathJax_Display,
-    #write .mathjax-block .md-math-container,
-    #write .mathjax-block .MathJax_Display,
-    #write .md-rawblock-container.md-math-container {
-        font-size: 0.98em !important;
-    }
-
-    #write .md-math-block mjx-container,
-    #write .md-math-block .MathJax,
-    #write .md-math-block .MathJax_SVG,
-    #write .md-math-block svg,
-    #write .mathjax-block mjx-container,
-    #write .mathjax-block .MathJax,
-    #write .mathjax-block .MathJax_SVG,
-    #write .mathjax-block svg,
-    #write .md-rawblock-container.md-math-container mjx-container,
-    #write .md-rawblock-container.md-math-container .MathJax,
-    #write .md-rawblock-container.md-math-container .MathJax_SVG,
-    #write .md-rawblock-container.md-math-container svg {
-        transform-origin: center center;
-    }
-}
-
 /* claude的简单渐入渐出动画 */
 .md-math-block .md-math-container {
     transition: background-color 0.15s ease-in-out !important;
@@ -1177,7 +1291,7 @@ a:hover {
 }
 
 #typora-sidebar-resizer:not(.dragging) .typora-sidebar-resizer-bar:hover {
-    background: none !important;
+    background: none!important;
 }
 
 /* ---------- 7.1 侧边栏尺寸 ---------- */
@@ -1226,6 +1340,33 @@ a:hover {
 
 /* ---------- 7.3 底栏 ---------- */
 
+.ty-add:before {
+    color: #1f1e1d80;
+}
+.ty-three-cells:before {
+    color: #1f1e1dbf;    
+}
+
+/* .ty-add:before:hover {
+    color: #D97757!important;
+} */
+
+#sidebar-new-file-btn:hover {
+    background: transparent!important;
+}
+
+#sidebar-footer-main-item-label {
+    color: var(--border-color-30) !important;
+}
+
+.ty-icon.ty-dots-v {
+    color: var(--border-color-15) !important;    
+}
+
+#switch-file-list-btn:hover {
+    background: transparent!important;
+}
+
 /* 去除侧边栏底栏的边框 */
 #ty-sidebar-footer {
     border: none;
@@ -1238,6 +1379,16 @@ a:hover {
     border-bottom-right-radius: inherit;
     background: transparent !important;
     background-clip: padding-box;
+}
+
+#typora-sidebar #sidebar-menu-btn:hover > .sidebar-footer-item,
+#typora-sidebar #sidebar-menu-btn > .sidebar-footer-item:hover,
+#typora-sidebar #sidebar-menu-btn:hover #sidebar-footer-main-item-label,
+#typora-sidebar #sidebar-footer-main-item-label:hover,
+#typora-sidebar #sidebar-menu-btn:hover > .sidebar-footer-item .footer-btn,
+#typora-sidebar #sidebar-menu-btn > .sidebar-footer-item .footer-btn:hover {
+    background: transparent !important;
+    background-color: transparent !important;
 }
 
 #sidebar-files-menu {
@@ -1362,11 +1513,11 @@ a:hover {
 }
 
 .ty-show-search .info-panel-tab-wrapper::before {
-    display: none;
+    transform: translateX(86px);
 }
 
 .ty-show-search .info-panel-tab-wrapper::after {
-    display: none;
+    transform: translateX(86px);
 }
 
 .info-panel-tab {
@@ -1405,7 +1556,7 @@ a:hover {
 }
 
 .info-panel-tab-title:active {
-    transform: translateY(-4px) scale(0.97);
+    transform: translateY(-5px);
 }
 
 .active-tab-files #info-panel-tab-file,
@@ -1444,7 +1595,7 @@ a:hover {
 
 /* 激活项标题颜色 */
 .file-list-item.active {
-    color: #756420 !important;
+    color: var(--LOGO-color) !important;
 }
 
 #typora-sidebar #sidebar-loading-template {
@@ -1579,7 +1730,7 @@ a:hover {
 /* 节点文字的字重 */
 .file-node-content {
     font-weight: var(--sidebar-font-weight);
-    transition: all 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out;
 }
 
 /* 文件树行高 */
@@ -1661,13 +1812,64 @@ a:hover {
 
 /* 搜索框 */
 #file-library-search-input {
-    border-color: var(--border-color-30);
+    border-color: #dedcd180;
     border-radius: 8px;
     height: 28px;
 }
 
+#file-library-search-input:focus {
+    border-color: #dedcd180;
+}
+
 #file-library-search-panel {
     border-bottom: none;
+}
+
+/* 文件树搜索框开合动画 */
+#typora-sidebar.active-tab-files.use-file-tree-style:not(.ty-on-search) #file-library-search {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 0;
+    height: 0;
+    min-height: 0;
+    overflow: hidden;
+    transition: flex-basis 0.25s ease, height 0.25s ease;
+}
+
+#typora-sidebar.active-tab-files.use-file-tree-style.ty-show-search:not(.ty-on-search) #file-library-search {
+    flex-basis: 50px;
+    height: 50px;
+}
+
+#typora-sidebar.active-tab-files.use-file-tree-style:not(.ty-on-search) #file-library-search-panel {
+    position: relative;
+    top: 0 !important;
+    margin-top: 0;
+    flex: 0 0 auto;
+    border-bottom: 0 !important;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition:
+        opacity 0.18s ease,
+        transform 0.25s ease,
+        visibility 0s linear 0.25s;
+}
+
+#typora-sidebar.active-tab-files.use-file-tree-style.ty-show-search #file-library-search-panel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition:
+        opacity 0.18s ease 0.04s,
+        transform 0.25s ease,
+        visibility 0s;
+}
+
+#typora-sidebar.active-tab-files.use-file-tree-style:not(.ty-show-search):not(.ty-on-search) #file-library-search-input {
+    border-color: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
 }
 
 /* 搜索列表背景 */
@@ -1831,6 +2033,15 @@ a:hover {
    9. 大纲
    ========================================= */
 
+#outline-content:empty::after {
+    content: "暂无大纲"!important;
+    display: block;
+    padding: 16px 12px;
+    color: rgba(48, 48, 46, 0.45);
+    font-size: 13px;
+    text-align: center;
+}
+
 /* 去除 X 按钮 */
 #close-outline-filter-btn {
     display: none !important;
@@ -1846,9 +2057,51 @@ a:hover {
     width: calc(100% - 1px) !important;
 }
 
-/* 将大纲搜索框向下位移 */
-.ty-show-outline-filter #file-library-search-panel {
-    top: 20px;
+/* 固定大纲搜索框在侧边栏顶部，并保留开合动画 */
+#typora-sidebar.active-tab-outline:not(.ty-on-search) #file-library-search {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 0;
+    height: 0;
+    min-height: 0;
+    overflow: hidden;
+    transition: flex-basis 0.25s ease, height 0.25s ease;
+}
+
+#typora-sidebar.ty-show-outline-filter:not(.ty-on-search) #file-library-search {
+    flex-basis: 50px;
+    height: 50px;
+}
+
+#typora-sidebar.active-tab-outline:not(.ty-on-search) #file-library-search-panel {
+    position: relative;
+    top: 0 !important;
+    margin-top: 0;
+    flex: 0 0 auto;
+    border-bottom: 0 !important;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition:
+        opacity 0.18s ease,
+        transform 0.25s ease,
+        visibility 0s linear 0.25s;
+}
+
+#typora-sidebar.ty-show-outline-filter:not(.ty-on-search) #file-library-search-panel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition:
+        opacity 0.18s ease 0.04s,
+        transform 0.25s ease,
+        visibility 0s;
+}
+
+#typora-sidebar.active-tab-outline:not(.ty-show-outline-filter):not(.ty-on-search) #file-library-search-input {
+    border-color: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
 }
 
 #outline-content {
@@ -2138,8 +2391,10 @@ li > .outline-item:hover::before,
 }
 
 /* 搜索状态下强制隐藏所有树状连线 */
-.outline-content li:has(.ty-outline-hit) *::before,
-.outline-content li:has(.ty-outline-hit) *::after {
+.outline-content li:has(.ty-outline-hit) .outline-item::before,
+.outline-content li:has(.ty-outline-hit) .outline-item::after,
+.outline-content li:has(.ty-outline-hit) .outline-children::before,
+.outline-content li:has(.ty-outline-hit) .outline-children::after {
     content: '';
     display: none;
 }
@@ -2314,50 +2569,40 @@ li > .outline-item:hover::before,
    ========================================= */
 
 @media print {
-    html,
-    body,
-    #content,
-    .content,
-    .typora-export,
-    .typora-export-content,
-    .typora-export #write,
-    .typora-export .write,
-    #write,
-    .write {
-        background: var(--bg-color) !important;
-        background-color: var(--bg-color) !important;
-        background-image: none !important;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
+    /* ---------- 行内样式：覆盖 Typora 默认 mark/u 打印样式，保留主题的波浪高亮和下划线 ---------- */
+    mark,
+    #write mark,
+    .write mark,
+    .typora-export mark,
+    span[md-inline="highlight"] mark,
+    .md-pair-s mark {
+        background: transparent !important;
+        background-color: transparent !important;
+        color: inherit !important;
+        text-decoration: underline wavy #D97757 !important;
+        text-decoration-line: underline !important;
+        text-decoration-style: wavy !important;
+        text-decoration-color: #D97757 !important;
+        text-decoration-thickness: 1px !important;
+        text-underline-offset: 3px !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
     }
 
-    /* ---------- 导出清理：隐藏编辑态浮层，避免进入 PDF ---------- */
-    .code-tooltip,
-    .md-hover-tip,
-    .md-toc-tooltip,
-    .md-rawblock-tooltip,
-    .md-rawblock-control,
-    .typora-table-drag-area,
-    .ty-table-edit,
-    .md-image-btn,
-    .md-image .md-meta {
-        display: none !important;
-    }
-
-    #write a,
-    .write a {
-        color: var(--font-color) !important;
-        text-decoration: underline;
-        text-decoration-color: var(--font-color) !important;
-        text-underline-offset: 2px;
-    }
-
-    #write img,
-    .write img,
-    #write svg,
-    .write svg {
-        max-width: 100% !important;
-        height: auto !important;
+    u,
+    #write u,
+    .write u,
+    .typora-export u,
+    span[md-inline="underline"] u {
+        color: inherit !important;
+        text-decoration: underline solid #D97757 !important;
+        text-decoration-line: underline !important;
+        text-decoration-style: solid !important;
+        text-decoration-color: #D97757 !important;
+        text-decoration-thickness: 1px !important;
+        text-underline-offset: 3px !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
     }
 
     /* ---------- 列表：flexbox gap 在打印引擎中不生效，回退为传统 margin 间距 ---------- */
@@ -2451,41 +2696,9 @@ li > .outline-item:hover::before,
         orphans: 2;
     }
 
-    h1, h2, h3, h4 {
-        break-after: avoid;
-        page-break-after: avoid;
-    }
-
-    h1 + *,
-    h2 + *,
-    h3 + *,
-    h4 + * {
-        break-before: avoid;
-        page-break-before: avoid;
-    }
-
-    figure,
-    pre,
-    blockquote,
-    img,
-    svg,
-    tr,
-    thead,
-    .md-fences,
-    .md-table-fig,
-    .table-figure,
-    .md-image,
-    .md-math-block,
-    .md-rawblock-container,
-    .md-toc,
-    .md-toc-content {
+    figure, pre, blockquote {
         break-inside: avoid;
         page-break-inside: avoid;
-    }
-
-    .md-fences,
-    pre {
-        overflow: visible !important;
     }
 }
 
@@ -2551,7 +2764,48 @@ li > .outline-item:hover::before,
 }
 
 .unibody-window .info-panel-tab-title:active {
-    transform: scale(0.97) !important;
+    transform: translateY(0) !important;
+}
+
+/* 一体化顶栏右侧窗口按钮：悬浮时不再改变背景 */
+.unibody-window #w-traffic-lights .toolbar-icon.btn.hover,
+.unibody-window #w-traffic-lights .toolbar-icon.btn:hover,
+.unibody-window #top-titlebar #w-close:hover {
+    background: transparent !important;
+    background-color: transparent !important;
+    color: var(--LOGO-color) !important;
+}
+
+/* 一体化顶栏与书写区交接处：只在标题栏自身宽度内加柔和渐隐，不覆盖侧边栏顶部 */
+.unibody-window:not(.megamenu-opened) #top-titlebar {
+    overflow: visible !important;
+    z-index: 900 !important;
+    isolation: isolate;
+}
+
+.unibody-window:not(.megamenu-opened) #top-titlebar > * {
+    position: relative;
+    z-index: 2;
+}
+
+.unibody-window:not(.megamenu-opened) #top-titlebar::after {
+    content: "";
+    position: absolute;
+    left: 25px;
+    right: 0;
+    top: 0;
+    bottom: -20px;
+    pointer-events: none;
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(250, 249, 245, 1) 0%,
+            rgba(250, 249, 245, 1) 65%,
+            rgba(250, 249, 245, 0) 100%
+        );
+    filter: blur(4px);
+    transform: translateZ(0);
+    z-index: 1;
 }
 
 /* =========================================
@@ -2604,29 +2858,25 @@ li > .outline-item:hover::before,
     letter-spacing: 0;
 }
 
-.unibody-window #megamenu-menu-header-title:hover {
-    color: var(--LOGO-color) !important;
-}
+/* 返回箭头 */
 
 .unibody-window #megamenu-back-btn {
-    margin-left: 10px;
-    border: 1px solid var(--claude-mega-border) !important;
-    border-radius: 8px !important;
-    background: var(--claude-mega-panel) !important;
-    color: var(--font-color) !important;
+    display: none!important;
+    /* margin-left: 10px;
+    border: none!important;
+    color: var(--font-color) !important; */
 }
 
-.unibody-window #megamenu-back-btn:hover {
-    border-color: var(--LOGO-color) !important;
-    background: var(--claude-mega-accent-soft) !important;
-}
+/* .unibody-window #megamenu-back-btn:hover {
+    border-color: none !important;
+} */
 
-.unibody-window #megamenu-back-btn > i {
+/* .unibody-window #megamenu-back-btn > i {
     display: block;
     color: inherit !important;
     font-size: 16px;
     line-height: 28px;
-}
+} */
 
 .unibody-window #megamenu-menu-list {
     padding: 0 8px !important;
@@ -2659,13 +2909,13 @@ li > .outline-item:hover::before,
 }
 
 .unibody-window #megamenu-menu-list > li > a .fa {
-    width: 24px;
+    width: 19px;
     margin: 0 12px 0 0;
     opacity: 1;
     color: var(--claude-mega-muted);
     font-size: 16px;
     line-height: 1;
-    text-align: center;
+    text-align: left;
 }
 
 .unibody-window #megamenu-menu-list > li > a:hover,
@@ -2690,6 +2940,21 @@ li > .outline-item:hover::before,
         radial-gradient(circle at 28% 0%, rgba(255, 255, 255, 0.62), transparent 24%),
         linear-gradient(180deg, var(--claude-mega-bg-soft), var(--bg-color) 58%) !important;
     color: var(--font-color) !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+.unibody-window #megamenu-content {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+.unibody-window #megamenu-content::-webkit-scrollbar,
+.unibody-window .megamenu-content::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
 }
 
 .unibody-window .megamenu-section {
@@ -2916,6 +3181,10 @@ li > .outline-item:hover::before,
     box-shadow: var(--claude-mega-shadow) !important;
 }
 
+.unibody-window .uni-preference-panel {
+    top: 0!important;
+}
+
 @media (max-width: 1440px) {
     .unibody-window #theme-preview-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -3011,6 +3280,7 @@ li > .outline-item:hover::before,
     color: var(--font-color) !important;
     transform: translateY(-1px);
     box-shadow: 0 10px 24px -20px rgba(31, 30, 29, 0.36) !important;
+    border-color: transparent!important;
 }
 
 .unibody-window #megamenu-section-open .long-btn:hover span,
@@ -3137,230 +3407,14 @@ li > .outline-item:hover::before,
     background: var(--hover-color) !important;
 }
 
-/* =========================================
-   V8 Upstream Merge Overrides
-   ========================================= */
-
-* {
-    outline-color: #D97757;
+/* --- 一体化 / 全屏标题栏：避免正文从顶部透明区域透出 --- */
+#top-titlebar,
+#w-top-margin,
+.typora-fullscreen header,
+.typora-fullscreen #top-titlebar,
+.typora-fullscreen #w-top-margin {
+    background: #FAF9F5 !important;
+    background-color: #FAF9F5 !important;
 }
 
-/* --- 设置界面翻新 --- */
-.pane-group .nav-group-item.active {
-    background-color: var(--hover-color) !important;
-}
 
-.pane-group .nav-group-item:active {
-    background-color: var(--hover-color) !important;
-}
-
-.pane-group .nav-group-item {
-    border-radius: 7px !important;
-}
-
-.pane-group .export-detail .input-group-content {
-    border-color: transparent !important;
-}
-
-.export-detail {
-    background: transparent !important;
-}
-
-.export-items-list-control {
-    background: none !important;
-}
-
-.export-detail textarea {
-    border-radius: 5px !important;
-    background-color: var(--border-color-30) !important;
-}
-
-.export-detail textarea:focus {
-    border-color: #D97757 !important;
-}
-
-.export-items-list .separator {
-    border-color: var(--border-color-30) !important;
-}
-
-.pane-sm.sidebar .search-input {
-    border-color: #D97757 !important;
-    border-radius: 20px !important;
-}
-
-.pane-group button.btn-default {
-    border-radius: 5px !important;
-    border-color: var(--border-color-15) !important;
-}
-
-.pane-group button.btn-default:hover {
-    border-color: transparent !important;
-}
-
-.pane-group .input-group-content {
-    padding: 24px 30px 24px 16px !important;
-    border: 1px solid var(--border-color-15) !important;
-    border-radius: 13px !important;
-}
-
-.pane-group .input-group-header-title {
-    color: #D97757 !important;
-}
-
-/* --- 表格工具栏与网格修复 --- */
-.ty-table-edit .btn-group-xs > .btn {
-    background: transparent !important;
-    box-shadow: none !important;
-    color: var(--font-color) !important;
-    opacity: 0.46;
-    transition: color 0.16s ease, opacity 0.16s ease;
-}
-
-.ty-table-edit .btn-group-xs > .btn:hover,
-.ty-table-edit .btn-group-xs > .btn:focus,
-.ty-table-edit .btn-group-xs > .btn:active {
-    background: transparent !important;
-    box-shadow: none !important;
-    color: var(--LOGO-color) !important;
-    opacity: 1;
-}
-
-.ty-table-edit .btn-group-xs > .btn .ty-icon,
-.ty-table-edit .btn-group-xs > .btn i,
-.ty-table-edit .btn-group-xs > .btn svg {
-    color: inherit !important;
-    fill: currentColor !important;
-    stroke: currentColor !important;
-}
-
-.md-table-resize-popover .md-grid-board-wrap {
-    width: auto !important;
-    height: auto !important;
-    min-width: 0 !important;
-    overflow: visible !important;
-    text-align: center !important;
-}
-
-.md-table-resize-popover.popover {
-    box-shadow: 0 0 #0000, 0 0 #0000, 0 25px 50px -12px rgb(0 0 0 / .25), 0 -8px 30px -6px rgb(0 0 0 / .15) !important;
-    transform-origin: 20px top;
-    animation: claude-context-menu-in 120ms cubic-bezier(.16, 1, .3, 1) both;
-    will-change: opacity, transform;
-}
-
-.md-table-resize-popover .md-grid-board {
-    width: auto !important;
-    min-width: 0 !important;
-    margin: 0 auto !important;
-    border: none !important;
-    border-collapse: collapse !important;
-    border-spacing: 0 !important;
-    table-layout: fixed !important;
-    line-height: normal !important;
-}
-
-.md-table-resize-popover .md-grid-board th,
-.md-table-resize-popover .md-grid-board td {
-    width: auto !important;
-    min-width: 0 !important;
-    height: auto !important;
-    padding: 0 !important;
-    border: none !important;
-    line-height: normal !important;
-}
-
-.md-table-resize-popover .md-grid-board tr[row='1'] {
-    background: transparent !important;
-}
-
-.md-table-resize-popover .md-grid-board .md-grid-ext {
-    background: rgba(217, 119, 87, 0.22) !important;
-}
-
-.md-table-resize-popover .md-grid-board tr[row='1'] .md-grid-ext {
-    background: rgba(217, 119, 87, 0.32) !important;
-}
-
-.md-table-resize-popover .md-grid-board a {
-    border-color: rgba(31, 30, 29, 0.22) !important;
-}
-
-.md-table-resize-popover .md-grid-board a.md-active,
-.md-table-resize-popover .md-grid-board a:hover {
-    border-color: var(--LOGO-color) !important;
-    background: rgba(217, 119, 87, 0.22) !important;
-}
-
-.md-table-resize-popover .popover-title {
-    margin-top: 6px !important;
-    text-align: center !important;
-}
-
-.md-table-resize-popover .md-grid-board-wrap .popover-title {
-    border-top-color: var(--border-color-30) !important;
-}
-
-/* --- 侧边栏底栏根目录 hover 清理 --- */
-#typora-sidebar #sidebar-menu-btn:hover > .sidebar-footer-item,
-#typora-sidebar #sidebar-menu-btn > .sidebar-footer-item:hover,
-#typora-sidebar #sidebar-menu-btn:hover #sidebar-footer-main-item-label,
-#typora-sidebar #sidebar-footer-main-item-label:hover,
-#typora-sidebar #sidebar-menu-btn:hover > .sidebar-footer-item .footer-btn,
-#typora-sidebar #sidebar-menu-btn > .sidebar-footer-item .footer-btn:hover {
-    background: transparent !important;
-    background-color: transparent !important;
-}
-
-/* --- 文件 / 大纲按钮按下态微调 --- */
-.info-panel-tab-title:active {
-    transform: translateY(-5px);
-}
-
-/* --- 一体化更新 --- */
-.unibody-window .info-panel-tab-title:active {
-    transform: translateY(0) !important;
-}
-
-.unibody-window #w-traffic-lights .toolbar-icon.btn.hover,
-.unibody-window #w-traffic-lights .toolbar-icon.btn:hover,
-.unibody-window #top-titlebar #w-close:hover {
-    background: transparent !important;
-    background-color: transparent !important;
-    color: var(--LOGO-color) !important;
-}
-
-.unibody-window #megamenu-menu-header-title:hover {
-    color: var(--font-color) !important;
-}
-
-.unibody-window #megamenu-back-btn {
-    display: none !important;
-}
-
-.unibody-window #megamenu-menu-list > li > a .fa {
-    width: 19px;
-    text-align: left;
-}
-
-.unibody-window .megamenu-content,
-.unibody-window #megamenu-content {
-    scrollbar-width: none !important;
-    -ms-overflow-style: none !important;
-}
-
-.unibody-window #megamenu-content::-webkit-scrollbar,
-.unibody-window .megamenu-content::-webkit-scrollbar {
-    display: none !important;
-    width: 0 !important;
-    height: 0 !important;
-    background: transparent !important;
-}
-
-.unibody-window .uni-preference-panel {
-    top: 0 !important;
-}
-
-.unibody-window #megamenu-section-open .long-btn:hover,
-.unibody-window #megamenu-section-export .long-btn:hover {
-    border-color: transparent !important;
-}
