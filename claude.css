@@ -9,7 +9,7 @@
 
 * {
     box-sizing: border-box;
-    outline-color: #D97757;
+    outline: none !important;
 }
 
 *,
@@ -81,6 +81,8 @@ body {
     --quote-boder: #1f1e1d1a;
 
     --LOGO-color: #D97757;
+    --focus-ring-color: #D97757;
+    --outline-hover-text-color: #a94f2d;
 
     /* --- 阴影变量 --- */
     --border-100: 30 3.3% 11.8%;
@@ -100,8 +102,8 @@ body {
 
     --font-weight: 360;
     --font-strong: 530;
-    --pre-inputfont-weight: 400;
-    --sidebar-font-weight: 400;
+    --pre-inputfont-weight: 430;
+    --sidebar-font-weight: 430;
 
     /* --- 圆角变量（仅备注） --- */
     --raduis-8: 8px;
@@ -528,7 +530,7 @@ span[md-inline="underline"] u {
     width: 13px !important;
     height: 13px !important;
     position: absolute;
-    top: 2.1px;
+    top: 2px;
     left: 2px;
     margin-left: -1.3em !important;
     margin-top: calc(1em - 12px) !important;
@@ -987,6 +989,7 @@ tt {
     border-color: var(--code-border);
     border-width: 0.5px;
     padding: 1px 0.25rem;
+    line-height: 21.6px;
 }
 
 /* ---------- 6.9 引用块 ---------- */
@@ -1595,7 +1598,7 @@ a:hover {
 
 /* 激活项标题颜色 */
 .file-list-item.active {
-    color: var(--LOGO-color) !important;
+    color: var(--LOGO-color)!important;
 }
 
 #typora-sidebar #sidebar-loading-template {
@@ -1640,9 +1643,13 @@ a:hover {
 }
 
 /* 鼠标命中层穿透，保护 hover 和点击 */
-.file-tree-node > .file-node-background {
+/* .file-tree-node > .file-node-background {
     pointer-events: none;
-}
+    box-sizing: border-box;
+    width: min(calc(100% - 0.5rem), calc(var(--sidebar-width) - 0.5rem));
+    border-radius: 0.5rem;
+    margin: 0 0.5rem;
+} */
 
 /* 分配接踵延迟变量 */
 .file-tree-node > .file-node-children > .file-library-node {
@@ -1702,18 +1709,29 @@ a:hover {
     --active-file-border-color: transparent;
 }
 
-/* 悬停时节点的背景色和左侧圆角 */
-.file-tree-node:not(.file-node-root):has(> .file-node-content:hover) > .file-node-background {
-    background-color: var(--hover-color);
-    border-radius: 0.5rem;
-    margin: 0 0.5rem;
+/* 悬停时不显示节点背景，保留布局圆角以免覆盖默认命中层 */
+.file-tree-node:not(.file-node-root):not(.active):has(> .file-node-content:hover) > .file-node-background {
+    background-color: transparent;
 }
 
-/* 点击后节点的背景色和左侧圆角 */
+/* 点击后节点的背景色（不再使用单独背景层） */
 .file-tree-node.active > .file-node-background {
-    background-color: var(--hover-color);
-    border-radius: 0.5rem;
-    margin: 0 0.5rem;
+    /* background-color: var(--hover-color); */
+    background-color: transparent;
+}
+
+/* 节点激活背景替换单独背景层 */
+.file-library-node.file-library-file-node.active > .file-node-content {
+    background: var(--hover-color);
+    border-radius: 8px;
+}
+
+/* 文件树换行 */
+.file-library-node.file-library-file-node > .file-node-content > .file-node-title {
+    min-width: 0;
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+    word-break: break-all;
 }
 
 /* 文字位移（修复版 - 使用独立 translate） */
@@ -1736,6 +1754,11 @@ a:hover {
 /* 文件树行高 */
 .file-node-content {
     line-height: 22px;
+}
+
+/* 文件树节点激活项的字体颜色 */
+.file-library-node.file-tree-node.file-library-file-node.active .file-node-title {
+    color: #D97757!important;
 }
 
 @font-face {
@@ -2211,14 +2234,18 @@ a:hover {
 /* 标题文字标签 */
 .outline-content li .outline-label {
     display: inline-block;
+    box-sizing: border-box;
+    max-width: calc(100% - 16px);
+    vertical-align: top;
     border-radius: 4px;
     padding: 7px 7px 7px 8px;
     font-size: 14px !important;
     line-height: 1.2;
-    overflow-wrap: normal;
-    word-wrap: normal;
-    word-break: keep-all;
-    white-space: nowrap;
+    transition: color 0.12s ease-out;
+    overflow-wrap: anywhere;
+    word-wrap: break-word;
+    word-break: normal;
+    white-space: normal;
     text-decoration: none;
 }
 
@@ -2229,8 +2256,7 @@ a:hover {
     padding-left: 0 !important;
 }
 
-/* 鼠标悬浮在展开按钮上时，或者节点处于展开状态时，标题文字的缩进微调 */
-.outline-item > .outline-expander:hover + .outline-label,
+/* 节点处于展开状态时，标题文字的缩进微调 */
 .outline-item-open > .outline-item > .outline-label {
     padding-left: 11px;
 }
@@ -2241,7 +2267,6 @@ a:hover {
 }
 
 /* 当前激活节点的缩进微调 */
-.outline-item-active > .outline-expander:hover + .outline-label,
 .outline-item-open > .outline-item-active > .outline-label {
     padding-left: 12px;
 }
@@ -2341,34 +2366,51 @@ a:hover {
 
 /* ----- 悬停与激活状态下的动态效果 ----- */
 
-/* 节点被悬停或处于激活状态时，缩短水平线 */
+/* 节点处于激活状态时，缩短水平线 */
 li > .outline-item-active:before,
-.outline-item:hover::before,
 .outline-item-active > .outline-item::before {
     width: 7px !important;
 }
 
-/* 节点向右移动并增加左内边距 */
+/* 激活节点向右移动并增加左内边距 */
 li > .outline-item-active,
-li > .outline-item:hover,
 .outline-item-active > .outline-item {
     margin-left: 4px !important;
     padding-left: 7px !important;
 }
 
-/* 调整水平连接线的位置保持相连 */
+/* 调整激活节点水平连接线的位置保持相连 */
 li > .outline-item-active::before,
-li > .outline-item:hover::before,
 .outline-item-active > .outline-item::before {
     left: -7px !important;
 }
 
-/* 悬停或激活时，改变背景颜色 */
+/* 悬停时只改变标题文字颜色，激活节点仍保留高亮 */
 .outline-item:hover,
-.outline-item:hover > .outline-label,
+.outline-item:hover > .outline-label {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+.outline-item:hover > .outline-label {
+    color: #D97757 !important;
+    text-decoration: none !important;
+}
+
 .outline-item-active,
-.outline-item-active > .outline-label {
+.outline-item-active > .outline-label,
+.outline-item-active:hover,
+.outline-item-active:hover > .outline-label,
+.outline-item-active > .outline-item:hover,
+.outline-item-active > .outline-item:hover > .outline-label {
     background: var(--hover-color) !important;
+}
+
+.outline-item-active > .outline-label,
+.outline-item-active:hover > .outline-label,
+.outline-item-active > .outline-item > .outline-label,
+.outline-item-active > .outline-item:hover > .outline-label {
+    color: #D97757 !important;
 }
 
 /* ----- 过滤/搜索大纲时的表现 ----- */
