@@ -100,8 +100,8 @@ body {
     --font-sans: "Anthropic Sans Web Text", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     --font-mono: "Anthropic Mono Variable", ui-monospace, monospace;
 
-    --font-weight: 360;
-    --font-strong: 530;
+    --font-weight: 400;
+    --font-strong: 700;
     --pre-inputfont-weight: 430;
     --sidebar-font-weight: 430;
 
@@ -203,6 +203,10 @@ body {
 
 .pane-group input:not([type="range"]):not([type="color"]) {
     border-radius: 4px!important;
+}
+
+.pane::-webkit-scrollbar {
+    display: none;
 }
 
 /* =========================================
@@ -323,6 +327,13 @@ body {
 
 .context-menu.dropdown-menu>li>a {
     color: var(--text-color);
+}
+
+.context-menu.dropdown-menu>.active>a,
+.context-menu.dropdown-menu>li>a:hover,
+.menu-style-btn.active {
+    background: transparent !important;
+    color: #6B4E2E !important;
 }
 
 /* ---------- 滚动条 ---------- */
@@ -1307,6 +1318,11 @@ a:hover {
     width: calc(var(--sidebar-width) - 15px) !important;
 }
 
+/* 缩短 Typora 默认的超远隐藏位移，保留侧边栏收起动画。 */
+.typora-node:not(.pin-outline) #typora-sidebar {
+    left: calc(0px - var(--sidebar-width) - 24px);
+}
+
 /* 调整底部菜单栏的圆角以适配悬浮面板 */
 #ty-sidebar-footer {
     border-bottom-left-radius: 15px;
@@ -1395,7 +1411,21 @@ a:hover {
 }
 
 #sidebar-files-menu {
-    background: var(--file-search-list-bg-color) !important;
+    /* color-mix 回退，兼容较旧的 Typora/Electron 内核。 */
+    background: rgba(248, 248, 243, 0.92) !important;
+    background: color-mix(
+        in srgb,
+        var(--file-search-list-bg-color) 58%,
+        transparent
+    ) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    backdrop-filter: blur(24px) saturate(1.45) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(1.45) !important;
+    box-shadow:
+        0 10px 36px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.10) !important;
+    border-radius: 16px !important;
 }
 
 #sidebar-new-file-btn {
@@ -1598,7 +1628,7 @@ a:hover {
 
 /* 激活项标题颜色 */
 .file-list-item.active {
-    color: var(--LOGO-color)!important;
+    color: #756420!important;
 }
 
 #typora-sidebar #sidebar-loading-template {
@@ -1980,6 +2010,13 @@ a:hover {
     box-shadow: none !important;
 }
 
+/* 收起动画期间隐藏侧边栏内部滚动条，避免状态类切换时闪现。 */
+.typora-node:not(.pin-outline) #typora-sidebar ::-webkit-scrollbar-thumb:vertical,
+.typora-node:not(.pin-outline) #typora-sidebar ::-webkit-scrollbar-thumb:vertical:hover {
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
 /* 去底部的水平滚动条 */
 #typora-sidebar ::-webkit-scrollbar:horizontal {
     display: none !important;
@@ -2057,7 +2094,7 @@ a:hover {
    ========================================= */
 
 #outline-content:empty::after {
-    content: "暂无大纲"!important;
+    content: "没有大纲哦~"!important;
     display: block;
     padding: 16px 12px;
     color: rgba(48, 48, 46, 0.45);
@@ -3458,5 +3495,3 @@ li > .outline-item-active::before,
     background: #FAF9F5 !important;
     background-color: #FAF9F5 !important;
 }
-
-

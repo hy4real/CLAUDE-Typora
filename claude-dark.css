@@ -190,6 +190,10 @@ html, body {
     border-radius: 4px!important;
 }
 
+.pane::-webkit-scrollbar {
+    display: none;
+}
+
 /* =========================================
    Focus Mode (F8)
    ========================================= */
@@ -369,6 +373,13 @@ body {
     color: var(--text-color);
 }
 
+.context-menu.dropdown-menu>.active>a,
+.context-menu.dropdown-menu>li>a:hover,
+.menu-style-btn.active {
+    background: transparent !important;
+    color: #E8E4D8 !important;
+}
+
 /*--- Scrollbar ---*/
 ::-webkit-scrollbar {
     width: 6px;
@@ -460,6 +471,7 @@ li.folder-menu-item.file-action-item.selected-folder-menu-item:hover > a {
 
 #write strong {
     font-weight: var(--font-strong);
+    color: #E6987D;
 }
 
 /*--- Hide bold/italic markdown markers ---*/
@@ -1057,7 +1069,7 @@ sup.md-footnote:hover {
 }
 
 .md-fences .cm-def {
-    color: #79b8ff;
+    color: #0051c2;
 }
 
 .md-fences .cm-variable-2,
@@ -1360,6 +1372,11 @@ a:hover {
     will-change: left, box-shadow;
 }
 
+/* Shorten Typora's far off-canvas hide position to preserve collapse animation. */
+.typora-node:not(.pin-outline) #typora-sidebar {
+    left: calc(0px - var(--sidebar-width) - 24px);
+}
+
 #typora-sidebar:hover {
     box-shadow: var(--box-shadow-userinput-hover) !important;
 }
@@ -1434,8 +1451,21 @@ a:hover {
 }
 
 #sidebar-files-menu {
-    background: var(--file-search-list-bg-color) !important;
-    border-color: #dedcd126!important;
+    /* color-mix fallback for older Typora/Electron builds. */
+    background: rgba(44, 44, 42, 0.92) !important;
+    background: color-mix(
+        in srgb,
+        var(--file-search-list-bg-color) 58%,
+        transparent
+    ) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    backdrop-filter: blur(24px) saturate(1.45) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(1.45) !important;
+    box-shadow:
+        0 10px 36px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.10) !important;
+    border-radius: 16px !important;
 }
 
 #sidebar-files-menu>.show+.menuitem-group-label.show {
@@ -1922,6 +1952,13 @@ a:hover {
 }
 
 /*--- Misc Sidebar ---*/
+/* Hide sidebar scrollbars during collapse so state changes do not flash the thumb. */
+.typora-node:not(.pin-outline) #typora-sidebar ::-webkit-scrollbar-thumb:vertical,
+.typora-node:not(.pin-outline) #typora-sidebar ::-webkit-scrollbar-thumb:vertical:hover {
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
 /* Remove focus outline on file tree nodes */
 .file-library-node:focus,
 .file-library-node:active,
@@ -2010,7 +2047,7 @@ a:hover {
    ========================================= */
 
 #outline-content:empty::after {
-    content: "暂无大纲"!important;
+    content: "没有大纲哦~"!important;
     display: block;
     padding: 16px 12px;
     color: rgba(250, 247, 240, 0.42);
