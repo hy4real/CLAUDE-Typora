@@ -288,17 +288,34 @@ body {
     display: none!important;
 }
 
-#context-menu,
+/* #context-menu,
 .dropdown-menu {
     box-shadow:
         0 0 0 0.5px rgba(255 255 255 / .1),
         0 8px 32px rgba(0 0 0 / .5),
         0 2px 8px rgba(0 0 0 / .4);
-}
+} */
+
+/* #context-menu,
+.dropdown-menu {
+    border-radius: 10px;
+} */
 
 #context-menu,
 .dropdown-menu {
-    border-radius: 10px;
+    background: rgba(38, 38, 36, 0.78);
+    backdrop-filter: blur(18px) saturate(1.35);
+    -webkit-backdrop-filter: blur(18px) saturate(1.35);
+
+    box-shadow:
+        0 14px 36px rgba(0, 0, 0, 0.36),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+    border-radius: 12px;
+}
+
+.menu-item-container a.menu-style-btn {
+    background: none!important;
 }
 
 /* Add a subtle entrance only to top-level context menus, not submenus */
@@ -380,6 +397,25 @@ body {
     color: #E8E4D8 !important;
 }
 
+.dropdown-menu .divider {
+    border-top: none!important;
+}
+.menu-item-container a.menu-style-btn {
+    box-shadow: none!important;
+}
+.context-menu.dropdown-menu>li>a {
+    color: var(--text-color);
+}
+.dropdown-menu .menu-style-btn .ty-icon {
+    color: rgba(250, 249, 245, 0.72);
+}
+.dropdown-menu .menu-style-btn:hover .ty-icon {
+    color: #FAF9F5;
+}
+.dropdown-menu .menu-style-btn.disabled .ty-icon {
+    color: rgba(250, 249, 245, 0.28);
+}
+
 /*--- Scrollbar ---*/
 ::-webkit-scrollbar {
     width: 6px;
@@ -403,6 +439,11 @@ body {
 .stopselect.dropmenu.sidebar-menu.open.active-tab-files.use-file-tree-style ::-webkit-scrollbar-thumb {
     background-color: transparent !important;
     border: none !important;
+}
+
+/* Hide language list scrollbar */
+.ty-lang-list::-webkit-scrollbar {
+    display: none;
 }
 
 /*--- Footer ---*/
@@ -1754,6 +1795,15 @@ a:hover {
     transition: color 0.15s ease-in-out;
 }
 
+/* File tree node alignment */
+.file-tree-node:not(.file-node-root) > .file-node-content {
+    padding-left: 13px;
+    margin-right: 6px;
+}
+.file-tree-node.file-node-root > .file-node-content {
+    padding-left: 10.5px;
+}
+
 .file-library-node.file-tree-node.file-library-file-node.active .file-node-title {
     color: #D97757!important;
 }
@@ -1795,6 +1845,23 @@ a:hover {
     color: #875d50;
 }
 
+/* 用文件夹图标外间距对齐文件夹标题和文件标题 */
+.file-node-icon.fa.fa-folder {
+    margin-right: 6px;
+}
+
+/* Empty folder uses closed icon */
+.file-library-node[data-has-sub="false"][data-is-directory="true"]
+> .file-node-content
+> .file-node-icon.fa-folder:before {
+    content: "\f114";
+}
+
+/* 移除小三角 */
+.file-node-open-state {
+    display: none!important;
+}
+
 /* Replace default file icons with a colored dot */
 #file-library-tree .file-library-file-node > .file-node-content .file-node-icon svg,
 #file-library-tree .file-library-file-node > .file-node-content .file-node-icon i,
@@ -1820,6 +1887,58 @@ a:hover {
     height: 6px;
     border-radius: 50%;
     background-color: var(--LOGO-color);
+}
+
+/* 第 1 层文件夹图标 (根目录下第一层) */
+#file-library-tree > .file-tree-node.file-node-root > .file-node-children > .file-tree-node > .file-node-content > .file-node-icon.fa-folder::before {
+    color: #D97757 !important;
+}
+
+/* 第 2 层文件夹图标 */
+#file-library-tree
+> .file-tree-node.file-node-root
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+> .file-tree-node
+> .file-node-content
+> .file-node-icon.fa-folder::before {
+    color: #C9826F !important;
+}
+
+/* 第 3 层文件夹图标 */
+#file-library-tree
+> .file-tree-node.file-node-root
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+> .file-tree-node
+> .file-node-content
+> .file-node-icon.fa-folder::before {
+    color: #A98E82 !important;
+}
+
+/* 第 4 层及更深文件夹图标 */
+#file-library-tree
+> .file-tree-node.file-node-root
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+.file-tree-node
+> .file-node-content
+> .file-node-icon.fa-folder::before {
+    color: #8F8A83 !important;
+}
+
+#file-library-tree .file-library-node[data-is-directory="true"] > .file-node-content .file-node-icon .fa-folder::before {
+    display: inline-block;
+    transform: translateY(0px);
 }
 
 /*--- Search ---*/

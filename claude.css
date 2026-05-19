@@ -250,16 +250,32 @@ body {
     display: none!important;
 }
 
-/* 右键菜单阴影 */
-#context-menu,
+/* #context-menu,
 .dropdown-menu {
     box-shadow: 0 0 #0000, 0 0 #0000, 0 25px 50px -12px rgb(0 0 0 / .25), 0 -8px 30px -6px rgb(0 0 0 / .15);
-}
+} */
 
-/* 右键菜单的圆角 */
-#context-menu,
+/* #context-menu,
 .dropdown-menu {
     border-radius: 10px;
+} */
+
+#context-menu,
+.dropdown-menu {
+    background: rgba(250, 249, 245, 0.58);
+    backdrop-filter: blur(20px) saturate(1.45);
+    -webkit-backdrop-filter: blur(20px) saturate(1.45);
+
+    box-shadow:
+        0 16px 42px rgba(20, 20, 19, 0.17),
+        0 2px 8px rgba(20, 20, 19, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.76);
+
+    border-radius: 12px;
+}
+
+.menu-item-container a.menu-style-btn {
+    background: none!important;
 }
 
 /* 仅为一级右键菜单添加微入场动效，避免影响二级菜单 */
@@ -336,6 +352,32 @@ body {
     color: #6B4E2E !important;
 }
 
+/* 隐藏右键菜单栏的内容分割线 */
+.dropdown-menu .divider {
+    border-top: none!important;
+}
+
+/* 隐藏右键菜单的按钮边框阴影 */
+.menu-item-container a.menu-style-btn {
+    box-shadow: none!important;
+}
+
+.context-menu.dropdown-menu>li>a {
+    color: var(--text-color);
+}
+
+.dropdown-menu .menu-style-btn .ty-icon {
+    color: rgba(20, 20, 19, 0.62);
+}
+
+.dropdown-menu .menu-style-btn:hover .ty-icon {
+    color: #141413;
+}
+
+.dropdown-menu .menu-style-btn.disabled .ty-icon {
+    color: rgba(20, 20, 19, 0.28);
+}
+
 /* ---------- 滚动条 ---------- */
 
 ::-webkit-scrollbar {
@@ -362,6 +404,11 @@ body {
 .stopselect.dropmenu.sidebar-menu.open.active-tab-files.use-file-tree-style ::-webkit-scrollbar-thumb {
     background-color: transparent !important;
     border: none !important;
+}
+
+/* 隐藏拼写检查的滚动条 */
+.ty-lang-list::-webkit-scrollbar {
+    display: none!important;
 }
 
 /* 去除编辑区底栏的上边框 */
@@ -1645,9 +1692,37 @@ a:hover {
 
 /* ---------- 7.6 文件树 ---------- */
 
+/* 文件树节点的间距、对齐优化 */
+/* 从第三层级开始，调整最佳的上下级标题水平间距 */
+.file-tree-node > .file-node-children > .file-library-node>.file-node-children> .file-library-node {
+    padding-left: 13px;
+}
+
+/* 用文件节点内间距对齐同级文件夹图标和文件图标 */
+.file-library-node.file-tree-node.file-library-file-node {
+    padding-left: 10.5px!important;
+}
+
+/* 用文件夹图标外间距对齐文件夹标题和文件标题 */
+.file-node-icon.fa.fa-folder {
+    margin-right: 6px;
+}
+
 /* 隐藏md后缀 */
 .file-node-title-ext-part {
     display: none;
+}
+
+/* 文件夹空闲状态时的图标 */
+.file-library-node[data-has-sub="false"][data-is-directory="true"]
+> .file-node-content
+> .file-node-icon.fa-folder:before {
+    content: "\f114";
+}
+
+/* 移除小三角 */
+.file-node-open-state {
+    display: none!important;
 }
 
 /* ----- 节点展开动画 ----- */
@@ -1816,8 +1891,62 @@ a:hover {
 /* ---------- 7.7 节点图标 ---------- */
 
 /* 文件夹节点图标 */
-.fa-folder:before {
+/* .fa-folder:before {
     color: var(--LOGO-color);
+} */
+
+/* 不同层级的文件夹图标颜色 */
+/* 第 1 层文件夹图标 */
+/* 根目录之下的第 1 层文件夹图标 */
+#file-library-tree
+> .file-tree-node.file-node-root
+> .file-node-children
+> .file-tree-node
+> .file-node-content
+> .file-node-icon.fa-folder::before {
+    color: #D97757 !important;
+}
+
+/* 第 2 层文件夹图标 */
+#file-library-tree
+> .file-tree-node.file-node-root
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+> .file-tree-node
+> .file-node-content
+> .file-node-icon.fa-folder::before {
+    color: #C9826F !important;
+}
+
+/* 第 3 层文件夹图标 */
+#file-library-tree
+> .file-tree-node.file-node-root
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+> .file-tree-node
+> .file-node-content
+> .file-node-icon.fa-folder::before {
+    color: #A98E82 !important;
+}
+
+/* 第 4 层及更深文件夹图标 */
+#file-library-tree
+> .file-tree-node.file-node-root
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+.file-tree-node
+> .file-node-content
+> .file-node-icon.fa-folder::before {
+    color: #8F8A83 !important;
 }
 
 #file-library-tree .file-library-node[data-is-directory="true"] > .file-node-content .file-node-icon .fa-folder::before {
