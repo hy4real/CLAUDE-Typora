@@ -2,6 +2,62 @@
    Reset & Base
    ========================================= */
 
+@font-face {
+    font-family: "Anthropic Serif Web Text";
+    src: url("./claude-fonts/c66fc489e-C-BHYa_K.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Anthropic Sans Web Text";
+    src: url("./claude-fonts/cc27851ad-CFxw3nG7.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Anthropic Mono Variable";
+    src: url("./claude-fonts/c5dbe0935-B88FVziN.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Noto Serif SC";
+    src: url("./claude-fonts/NotoSerifSC-VariableFont_wght.ttf") format("truetype");
+    font-weight: 200 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Noto Sans";
+    src: url("./claude-fonts/NotoSans-VariableFont_wdth,wght.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Noto Sans";
+    src: url("./claude-fonts/NotoSans-Italic-VariableFont_wdth,wght.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "UnifrakturMaguntia";
+    src: url("./claude-fonts/UnifrakturMaguntia-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
 * {
     box-sizing: border-box;
     outline: none !important;
@@ -26,6 +82,26 @@ html, :host {
 
 html, body {
     font-family: var(--font-sans);
+}
+
+/* cursors */
+a {
+    cursor: default;
+}
+.menu-item-container a.menu-style-btn {
+    cursor: default;
+}
+table {
+    cursor: text;
+}
+.outline-label {
+    cursor: default;
+}
+.info-panel-tab {
+    cursor: default;
+}
+.sidebar-footer-item {
+    cursor: default;
 }
 
 /* =========================================
@@ -124,6 +200,8 @@ html, body {
 .typora-sourceview-on #toggle-sourceview-btn {
     background: transparent !important;
 }
+
+/*----------------  setting  -----------------*/
 
 .pane-group .nav-group-item:active {
     background-color: var(--hover-color)!important;
@@ -314,6 +392,10 @@ body {
     border-radius: 12px;
 }
 
+.typora-node.no-collapse-outline.allow-file-tree-scroll.unibody-window.show-footer.os-windows.os-windows-10.hide-br-and-line-break.typora-maxmized.ty-show-word-count.pin-outline #footer-word-count-info {
+    background: rgba(38, 38, 36, 0.94)!important;
+}
+
 .menu-item-container a.menu-style-btn {
     background: none!important;
 }
@@ -390,28 +472,19 @@ body {
     color: var(--text-color);
 }
 
-.context-menu.dropdown-menu>.active>a,
-.context-menu.dropdown-menu>li>a:hover,
-.menu-style-btn.active {
-    background: transparent !important;
-    color: #E8E4D8 !important;
+.context-menu.dropdown-menu>.active>a, .context-menu.dropdown-menu>li>a:hover, .menu-style-btn.active {
+    background: transparent!important;
+    color: #E8E4D8!important;
 }
 
-.dropdown-menu .divider {
-    border-top: none!important;
-}
-.menu-item-container a.menu-style-btn {
-    box-shadow: none!important;
-}
-.context-menu.dropdown-menu>li>a {
-    color: var(--text-color);
-}
 .dropdown-menu .menu-style-btn .ty-icon {
     color: rgba(250, 249, 245, 0.72);
 }
+
 .dropdown-menu .menu-style-btn:hover .ty-icon {
     color: #FAF9F5;
 }
+
 .dropdown-menu .menu-style-btn.disabled .ty-icon {
     color: rgba(250, 249, 245, 0.28);
 }
@@ -440,10 +513,13 @@ body {
     background-color: transparent !important;
     border: none !important;
 }
+#file-library::-webkit-scrollbar {
+  width: 0!important;
+  height: 0!important;
+}
 
-/* Hide language list scrollbar */
 .ty-lang-list::-webkit-scrollbar {
-    display: none;
+    display: none!important;
 }
 
 /*--- Footer ---*/
@@ -459,6 +535,28 @@ li.folder-menu-item.file-action-item.selected-folder-menu-item:hover > a {
     background: none !important;
     background-color: transparent !important;
     box-shadow: none !important;
+}
+
+/* 编辑区底栏 */
+.typora-node.pin-outline:not(.megamenu-opened):not(.typora-sourceview-on) footer.ty-footer {
+    border-radius: 66px;
+}
+
+.typora-node.pin-outline:not(.megamenu-opened):not(.typora-sourceview-on) footer.ty-footer {
+    left: calc(var(--sidebar-width) + 24px);
+    transition: .3s;
+
+    z-index: 20;
+
+    color: rgba(250, 249, 245, 0.74);
+    background: rgba(38, 38, 36, 0.72);
+
+    backdrop-filter: blur(18px) saturate(112%);
+    -webkit-backdrop-filter: blur(18px) saturate(112%);
+
+    border-top: 1px solid rgba(250, 249, 245, 0.11);
+
+    box-shadow: none;
 }
 
 /* =========================================
@@ -1499,13 +1597,17 @@ a:hover {
         var(--file-search-list-bg-color) 58%,
         transparent
     ) !important;
+
     border: 1px solid rgba(255, 255, 255, 0.18) !important;
+
     backdrop-filter: blur(24px) saturate(1.45) !important;
     -webkit-backdrop-filter: blur(24px) saturate(1.45) !important;
+
     box-shadow:
         0 10px 36px rgba(0, 0, 0, 0.22),
         inset 0 1px 0 rgba(255, 255, 255, 0.22),
         inset 0 -1px 0 rgba(0, 0, 0, 0.10) !important;
+
     border-radius: 16px !important;
 }
 
@@ -1677,9 +1779,37 @@ a:hover {
 }
 
 /*--- File Tree ---*/
+
+/* 文件树节点的间距、对齐优化 */
+/* 从第三层级开始，调整最佳的上下级标题水平间距 */
+.file-tree-node > .file-node-children > .file-library-node>.file-node-children> .file-library-node {
+    padding-left: 13px;
+}
+
+/* 用文件节点内间距对齐同级文件夹图标和文件图标 */
+.file-library-node.file-tree-node.file-library-file-node {
+    padding-left: 10.5px!important;
+}
+
+/* 用文件夹图标外间距对齐文件夹标题和文件标题 */
+.file-node-icon.fa.fa-folder {
+    margin-right: 6px;
+}
+
 /* Hide .md extension */
 .file-node-title-ext-part {
     display: none;
+}
+
+.file-library-node[data-has-sub="false"][data-is-directory="true"]
+> .file-node-content
+> .file-node-icon.fa-folder:before {
+    content: "\f114";
+}
+
+/* 移除小三角 */
+.file-node-open-state {
+    display: none!important;
 }
 
 /* Node expand animation */
@@ -1795,22 +1925,14 @@ a:hover {
     transition: color 0.15s ease-in-out;
 }
 
-/* File tree node alignment */
-.file-tree-node:not(.file-node-root) > .file-node-content {
-    padding-left: 13px;
-    margin-right: 6px;
-}
-.file-tree-node.file-node-root > .file-node-content {
-    padding-left: 10.5px;
-}
-
 .file-library-node.file-tree-node.file-library-file-node.active .file-node-title {
     color: #D97757!important;
 }
 
 @font-face {
     font-family: "ClaudeRootCJKLogo";
-    src: local("站酷小薇LOGO体");
+    src: local("站酷小薇LOGO体"),
+         url("./claude-fonts/ZhanKuXiaoLOGOTi-2.otf") format("opentype");
     unicode-range: U+2E80-2EFF, U+3000-303F, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF, U+FF00-FFEF;
 }
 
@@ -1831,6 +1953,108 @@ a:hover {
 }
 
 /*--- File Tree Icons ---*/
+
+/* 不同层级的文件夹图标颜色 */
+/* 第 1 层文件夹图标 */
+/* 根目录之下的第 1 层文件夹图标 */
+#file-library-tree
+> .file-tree-node.file-node-root
+> .file-node-children
+> .file-tree-node {
+    --claude-folder-expanded-title-color: #D97757;
+}
+
+#file-library-tree
+> .file-tree-node.file-node-root
+> .file-node-children
+> .file-tree-node
+> .file-node-content
+> .file-node-icon.fa-folder::before {
+    color: #D97757 !important;
+}
+
+/* 第 2 层文件夹图标 */
+#file-library-tree
+> .file-tree-node.file-node-root
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+> .file-tree-node {
+    --claude-folder-expanded-title-color: #C9826F;
+}
+
+#file-library-tree
+> .file-tree-node.file-node-root
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+> .file-tree-node
+> .file-node-content
+> .file-node-icon.fa-folder::before {
+    color: #C9826F !important;
+}
+
+/* 第 3 层文件夹图标 */
+#file-library-tree
+> .file-tree-node.file-node-root
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+> .file-tree-node {
+    --claude-folder-expanded-title-color: #A98E82;
+}
+
+#file-library-tree
+> .file-tree-node.file-node-root
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+> .file-tree-node
+> .file-node-content
+> .file-node-icon.fa-folder::before {
+    color: #A98E82 !important;
+}
+
+/* 第 4 层及更深文件夹图标 */
+#file-library-tree
+> .file-tree-node.file-node-root
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+.file-tree-node {
+    --claude-folder-expanded-title-color: #8F8A83;
+}
+
+#file-library-tree
+> .file-tree-node.file-node-root
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+> .file-tree-node
+> .file-node-children
+.file-tree-node
+> .file-node-content
+> .file-node-icon.fa-folder::before {
+    color: #8F8A83 !important;
+}
+
+#file-library-tree
+.file-tree-node.file-node-expanded:not(.file-node-root):not(.file-library-file-node)
+> .file-node-content
+> .file-node-title {
+    color: var(--claude-folder-expanded-title-color) !important;
+}
+
 .fa-folder:before {
     color: var(--LOGO-color);
 }
@@ -1843,23 +2067,6 @@ a:hover {
 /* Folder expand triangle */
 #file-library-tree .file-library-node[data-is-directory="true"] > .file-node-content .file-node-open-state i {
     color: #875d50;
-}
-
-/* 用文件夹图标外间距对齐文件夹标题和文件标题 */
-.file-node-icon.fa.fa-folder {
-    margin-right: 6px;
-}
-
-/* Empty folder uses closed icon */
-.file-library-node[data-has-sub="false"][data-is-directory="true"]
-> .file-node-content
-> .file-node-icon.fa-folder:before {
-    content: "\f114";
-}
-
-/* 移除小三角 */
-.file-node-open-state {
-    display: none!important;
 }
 
 /* Replace default file icons with a colored dot */
@@ -1887,58 +2094,6 @@ a:hover {
     height: 6px;
     border-radius: 50%;
     background-color: var(--LOGO-color);
-}
-
-/* 第 1 层文件夹图标 (根目录下第一层) */
-#file-library-tree > .file-tree-node.file-node-root > .file-node-children > .file-tree-node > .file-node-content > .file-node-icon.fa-folder::before {
-    color: #D97757 !important;
-}
-
-/* 第 2 层文件夹图标 */
-#file-library-tree
-> .file-tree-node.file-node-root
-> .file-node-children
-> .file-tree-node
-> .file-node-children
-> .file-tree-node
-> .file-node-content
-> .file-node-icon.fa-folder::before {
-    color: #C9826F !important;
-}
-
-/* 第 3 层文件夹图标 */
-#file-library-tree
-> .file-tree-node.file-node-root
-> .file-node-children
-> .file-tree-node
-> .file-node-children
-> .file-tree-node
-> .file-node-children
-> .file-tree-node
-> .file-node-content
-> .file-node-icon.fa-folder::before {
-    color: #A98E82 !important;
-}
-
-/* 第 4 层及更深文件夹图标 */
-#file-library-tree
-> .file-tree-node.file-node-root
-> .file-node-children
-> .file-tree-node
-> .file-node-children
-> .file-tree-node
-> .file-node-children
-> .file-tree-node
-> .file-node-children
-.file-tree-node
-> .file-node-content
-> .file-node-icon.fa-folder::before {
-    color: #8F8A83 !important;
-}
-
-#file-library-tree .file-library-node[data-is-directory="true"] > .file-node-content .file-node-icon .fa-folder::before {
-    display: inline-block;
-    transform: translateY(0px);
 }
 
 /*--- Search ---*/
@@ -2042,9 +2197,9 @@ a:hover {
     border-bottom: 0;
 }
 
-.ty-file-search-match-text {
+.ty-search-item-line .ty-file-search-match-text {
     background-color: transparent;
-    color: var(--font-color);
+    color: var(--LOGO-color);
 }
 
 .file-list-item-count {
@@ -2919,6 +3074,31 @@ li > .outline-item-active::before,
    13. Integrated Menu Adaptation (mdmdt Scope)
    ========================================= */
 
+#recent-file-panel {
+    overflow: hidden;
+}
+
+#recent-document-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+#recent-document-table th:first-child,
+#recent-document-table td.recent-file-name {
+    width: 40%;
+}
+
+#recent-document-table th:nth-child(2),
+#recent-document-table td.recent-file-dir {
+    width: 60%;
+}
+
+#recent-document-table td.recent-file-dir {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 .unibody-window {
     --claude-mega-bg: #1f1e1d;
     --claude-mega-bg-soft: rgba(38, 38, 36, 0.94);
@@ -3062,6 +3242,19 @@ li > .outline-item-active::before,
     margin-top: 12px;
 }
 
+/* .megamenu-menu-panel table tr {
+    cursor: default!important;
+} */
+#recent-document-table {
+    cursor: default!important;
+}
+.recent-file-dir {
+    cursor: default!important;
+}
+.recent-file-name {
+    cursor: pointer!important;
+}
+
 .unibody-window .megamenu-menu-panel {
     margin-bottom: 22px;
     padding: 20px 22px;
@@ -3193,10 +3386,16 @@ li > .outline-item-active::before,
 .unibody-window #recent-document-table .recent-file-name {
     color: var(--font-color);
     font-weight: 700;
+    transform: translateX(0);
+    transition:
+        color 0.18s ease,
+        text-shadow 0.18s ease,
+        transform 0.2s cubic-bezier(0.22, 1, 0.36, 1) !important;
 }
 
 .unibody-window #recent-document-table tr:hover td {
-    background: var(--claude-mega-accent-soft) !important;
+    background: transparent !important;
+    background-color: transparent !important;
 }
 
 .unibody-window #theme-preview-grid {
@@ -3316,7 +3515,7 @@ li > .outline-item-active::before,
 
 /* --- Integrated menu refinements: font, menu states, open/export interaction, preference shell --- */
 .unibody-window {
-    --claude-mega-font: "Anthropic Sans Web Text", "Noto Sans SC", "Noto Sanc SC", system-ui, "Segoe UI", sans-serif;
+    --claude-mega-font: "Anthropic Sans Web Text", "Noto Sans", "Noto Sans SC", system-ui, "Segoe UI", sans-serif;
     --claude-mega-slider-bg:
         linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.06)),
         rgba(48, 48, 46, 0.78);
@@ -3410,18 +3609,23 @@ li > .outline-item-active::before,
 .unibody-window #recent-document-table tbody tr,
 .unibody-window #recent-document-table tbody td {
     transition:
-        background-color 0.18s ease,
         color 0.18s ease,
         transform 0.18s cubic-bezier(0.22, 1, 0.36, 1) !important;
 }
 
-.unibody-window #recent-document-table tbody tr:hover {
+/* .unibody-window #recent-document-table tbody tr:hover {
     transform: translateX(2px);
-}
+} */
 
 .unibody-window #recent-document-table tbody tr:hover td {
-    background: var(--hover-color) !important;
-    color: var(--font-color) !important;
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+.unibody-window #recent-document-table tbody td.recent-file-name:hover {
+    color: var(--LOGO-color) !important;
+    text-shadow: 0 4px 14px rgba(217, 119, 87, 0.2);
+    transform: translateX(4px);
 }
 
 .unibody-window #recent-document-table tbody td:first-child {
@@ -3499,12 +3703,14 @@ li > .outline-item-active::before,
 .unibody-window #recent-document-table.table-hover > tbody > tr:hover > td,
 .unibody-window #recent-document-table tbody > tr.recent-file-item:hover,
 .unibody-window #recent-document-table tbody > tr.recent-file-item:hover > td {
-    background: var(--claude-recent-row-hover-bg) !important;
-    background-color: var(--claude-recent-row-hover-bg) !important;
+    background: transparent !important;
+    background-color: transparent !important;
 }
 
-.unibody-window #recent-document-table tbody > tr.recent-file-item:hover .recent-file-name {
-    color: var(--font-color) !important;
+.unibody-window #recent-document-table tbody > tr.recent-file-item .recent-file-name:hover {
+    color: var(--LOGO-color) !important;
+    text-shadow: 0 4px 14px rgba(217, 119, 87, 0.2);
+    transform: translateX(4px);
 }
 
 /* --- Integrated menu interaction trim: non-active hover keeps text motion only --- */
@@ -3536,9 +3742,16 @@ li > .outline-item-active::before,
 .unibody-window #recent-document-table.table-hover > tbody > tr:hover > td,
 .unibody-window #recent-document-table tbody > tr.recent-file-item:hover,
 .unibody-window #recent-document-table tbody > tr.recent-file-item:hover > td,
+.unibody-window #recent-document-table tbody tr:hover,
 .unibody-window #recent-document-table tbody tr:hover td {
-    background: var(--hover-color) !important;
-    background-color: var(--hover-color) !important;
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+.unibody-window #recent-document-table tbody td.recent-file-name:hover {
+    color: var(--LOGO-color) !important;
+    text-shadow: 0 4px 14px rgba(217, 119, 87, 0.2);
+    transform: translateX(4px);
 }
 
 /* --- Integrated / fullscreen title bar: keep scrolled editor text from showing through --- */
@@ -3549,4 +3762,24 @@ li > .outline-item-active::before,
 .typora-fullscreen #w-top-margin {
     background: #262624 !important;
     background-color: #262624 !important;
+}
+
+
+/*------------ chajian ------------*/
+/*1. 文件树计数*/
+.file-node-content:after {
+    background: none!important;
+    border: none!important;
+    color: #8F8C93!important;
+}
+/*2. 设置界面配色*/
+.plugin-preferences-mask {
+    --pref-bg-dialog:#1e1e20!important;
+    --pref-bg-sidebar:#252528!important;
+    --pref-bg-hover:var(--hover-color)!important;
+    --pref-bg-active:var(--LOGO-color)!important;
+    --pref-primary:var(--LOGO-color)!important;
+    --pref-primary-text:var(--sidebar-font-color)!important;
+    --pref-text-main:var(--font-color)!important;
+    --pref-text-sub:var(--sidebar-font-color)!important;
 }
