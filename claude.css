@@ -36,18 +36,10 @@
 }
 
 @font-face {
-    font-family: "Noto Sans";
-    src: url("./claude-fonts/NotoSans-VariableFont_wdth,wght.ttf") format("truetype");
+    font-family: "Noto Sans SC";
+    src: url("./claude-fonts/NotoSansSC-VariableFont_wght.ttf") format("truetype");
     font-weight: 100 900;
     font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Noto Sans";
-    src: url("./claude-fonts/NotoSans-Italic-VariableFont_wdth,wght.ttf") format("truetype");
-    font-weight: 100 900;
-    font-style: italic;
     font-display: swap;
 }
 
@@ -173,7 +165,7 @@ table {
     --box-shadow-userinput-focus: 0 24px 64px -28px rgb(31 30 29 / 44%), 0 12px 26px -14px rgb(31 30 29 / 24%), 0 0 0 0.5px hsla(var(--border-200) / 0.32);
     /* --- 字体变量 --- */
     --font-serif: "Anthropic Serif Web Text", Georgia, "Times New Roman", "Noto Serif SC";
-    --font-sans: "Anthropic Sans Web Text", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-sans: "Anthropic Sans Web Text", "Noto Sans SC", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     --font-mono: "Anthropic Mono Variable", ui-monospace, monospace;
 
     --font-weight: 400;
@@ -187,19 +179,10 @@ table {
     --raduis-20: 20px;
 }
 
-/* =========================================
-   3. 插件特调
-   ========================================= */
-
-#plugin-action-buttons .action-item {
-    color: var(--sidebar-font-color) !important;
-    border-color: var(--border-color-15) !important;
-    border-width: 0.5px !important;
-}
-
-/* 切换源码模式按钮的背景 */
-.typora-sourceview-on #toggle-sourceview-btn {
-    background: transparent !important;
+:root {
+    --swatch-clay: #d97757;
+    --theme-selection-background: rgba(217, 119, 87, 0.50);
+    --theme-selection-background: color-mix(in srgb, var(--swatch-clay) 50%, transparent);
 }
 
 /* =========================================
@@ -579,8 +562,15 @@ li.folder-menu-item.file-action-item.selected-folder-menu-item:hover > a {
 
 /* 修改普通文本的选中高亮颜色 */
 ::selection {
-    background: rgba(142, 164, 255, 0.30);
+    background: var(--theme-selection-background);
     color: #131314;
+}
+
+#write code::selection,
+#write code *::selection,
+#write tt::selection,
+#write tt *::selection {
+    color: var(--code-font-color);
 }
 
 /* ---------- Typora 隐藏加粗/斜体星号标记 ---------- */
@@ -1143,6 +1133,34 @@ tt {
     line-height: 21.6px;
 }
 
+/* ---------- 6.8.1 键盘按键 ---------- */
+
+kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.65em;
+    height: 1.55em;
+    margin: 0 0.08em;
+    padding: 0 0.45em;
+    vertical-align: 0.08em;
+    font-family: var(--font-sans);
+    font-size: 0.78em;
+    font-weight: var(--font-strong);
+    line-height: 1;
+    white-space: nowrap;
+    color: var(--font-color);
+    background:
+        linear-gradient(180deg, rgb(255 255 255 / 72%), rgb(255 255 255 / 18%)),
+        var(--button-bg-color);
+    border: 1px solid var(--border-color-15);
+    border-bottom-color: var(--border-color-30);
+    border-radius: 0.42rem;
+    box-shadow:
+        inset 0 -1px 0 rgb(31 30 29 / 12%),
+        0 1px 2px rgb(31 30 29 / 10%);
+}
+
 /* ---------- 6.9 引用块 ---------- */
 
 blockquote {
@@ -1439,11 +1457,16 @@ a:hover {
    ========================================= */
 
 /* 去除展开侧边栏和开启源码模式的按钮 */
-#toggle-sourceview-btn,
-#outline-btn-wrapper {
-    display: none !important;
+.footer-item:hover, .sidebar-footer-item:hover {
+    background: transparent;
 }
 
+.footer-item-left ,
+#outline-btn {
+    cursor: default;
+}
+
+/* 侧边栏拖拽区背景 */
 #typora-sidebar-resizer:not(.dragging) .typora-sidebar-resizer-bar:hover {
     background: none!important;
 }
@@ -1551,7 +1574,7 @@ a:hover {
 }
 
 #sidebar-files-menu {
-    /* color-mix 回退，兼容较旧的 Typora/Electron 内核。 */
+    /* color-mix fallback for older Typora/Electron builds. */
     background: rgba(248, 248, 243, 0.92) !important;
     background: color-mix(
         in srgb,
@@ -1800,9 +1823,17 @@ a:hover {
     padding-left: 10.5px!important;
 }
 
+/* 对齐根目录下同级的文件夹标题和文件标题 */
+#file-library-tree
+> .file-tree-node.file-node-root
+> .file-node-children
+> .file-library-node[data-is-directory="true"] {
+    padding-left: 13.5px;
+}
+
 /* 用文件夹图标外间距对齐文件夹标题和文件标题 */
 .file-node-icon.fa.fa-folder {
-    margin-right: 6px;
+    margin-right: 6.5px;
 }
 
 /* 隐藏md后缀 */
@@ -1974,8 +2005,8 @@ a:hover {
 
 @font-face {
     font-family: "ClaudeRootCJKLogo";
-    src: local("站酷小薇LOGO体"),
-         url("./claude-fonts/ZhanKuXiaoLOGOTi-2.otf") format("opentype");
+    src: local("FZQingKeBenYueSongS-R-GB"),
+         url("./claude-fonts/FZQingKeBenYueSongS-R-GB.ttf") format("truetype");
     unicode-range: U+2E80-2EFF, U+3000-303F, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF, U+FF00-FFEF;
 }
 
@@ -2097,7 +2128,7 @@ a:hover {
 }
 
 #file-library-tree
-.file-tree-node.file-node-expanded:not(.file-node-root):not(.file-library-file-node)
+.file-tree-node:not(.file-node-root):not(.file-library-file-node):has(.file-library-file-node.active)
 > .file-node-content
 > .file-node-title {
     color: var(--claude-folder-expanded-title-color) !important;
@@ -3048,9 +3079,15 @@ li > .outline-item-active::before,
     }
 
     /* ---------- 行内代码：防止跨页断裂 ---------- */
-    code {
+    code,
+    kbd {
         break-inside: avoid;
         page-break-inside: avoid;
+    }
+
+    kbd {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
     }
 
     p, li {
@@ -3623,7 +3660,7 @@ li > .outline-item-active::before,
 
 /* --- 一体化菜单细节修正：字体、菜单状态、打开/导出交互、偏好外框 --- */
 .unibody-window {
-    --claude-mega-font: "Anthropic Sans Web Text", "Noto Sans", "Noto Sans SC", system-ui, "Segoe UI", sans-serif;
+    --claude-mega-font: "Anthropic Sans Web Text", "Noto Sans SC", system-ui, "Segoe UI", sans-serif;
     --claude-mega-slider-bg:
         linear-gradient(112deg, transparent 0 18%, rgba(176, 184, 174, 0.10) 19%, transparent 31%),
         linear-gradient(150deg, transparent 0 54%, rgba(214, 209, 194, 0.14) 55%, transparent 68%),
@@ -3844,17 +3881,359 @@ li > .outline-item-active::before,
 
 
 /*------------- 第三方插件适配 ------------*/
-/*1. 文件树计数*/
+/*1. 插件按钮与查找替换*/
+#plugin-action-buttons .action-item {
+    color: var(--sidebar-font-color) !important;
+    border-color: var(--border-color-15) !important;
+    border-width: 0.5px !important;
+}
+
+#md-searchpanel input {
+    border-radius: 3px;
+}
+
+.form-control {
+    border-color: var(--border-color-30);
+}
+
+.code-tooltip .ty-input:focus, input:focus,
+.form-control:focus {
+    border-color: #D97757;
+    box-shadow: none!important;
+}
+
+#md-searchpanel {
+    color:var(--sidebar-font-color);
+    box-shadow: rgba(0,0,0,.6) 0 0 .5em!important;
+}
+
+.searchpanel-search-option-btn {
+    border: none;
+    cursor: default;
+}
+
+#md-searchpanel .btn:not(.close-btn):hover {
+    box-shadow: none;
+}
+
+#md-searchpanel.searchpanel-replace-mode {
+    z-index: 899!important;
+}
+
+/*2. 文件树计数*/
 .file-node-content:after {
     background: none!important;
     border: none!important;
     color: #8F857C!important;
 }
-/*2. 设置界面配色*/
+/*3. 设置界面配色*/
 .plugin-preferences-mask {
     --pref-bg-hover:var(--hover-color)!important;
     --pref-bg-active:var(--LOGO-color)!important;
     --pref-primary:var(--LOGO-color)!important;
     --pref-primary-text:var(--LOGO-color)!important;
     --pref-primary-text:var(--sidebar-font-color)!important;
+}
+
+/*4. 插件右键菜单*/
+.plugin-common-menu {
+    min-width: 196px;
+    padding: 6px !important;
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.34), rgba(250, 249, 245, 0.16)),
+        rgba(250, 249, 245, 0.24) !important;
+    color: var(--font-color) !important;
+    border: 0.5px solid rgba(255, 255, 255, 0.38) !important;
+    border-radius: 12px !important;
+    box-shadow:
+        0 18px 46px rgba(20, 20, 19, 0.13),
+        0 2px 10px rgba(20, 20, 19, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.82),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.24) !important;
+    backdrop-filter: blur(28px) saturate(1.85) brightness(1.05);
+    -webkit-backdrop-filter: blur(28px) saturate(1.85) brightness(1.05);
+    overflow: hidden;
+    user-select: none;
+}
+
+.plugin-common-menu.show {
+    transform-origin: top left;
+    animation: claude-context-menu-in 120ms cubic-bezier(.16, 1, .3, 1) both;
+    will-change: opacity, transform;
+}
+
+.plugin-common-menu .menu-item {
+    height: 28px;
+    line-height: 28px;
+    padding: 0 14px !important;
+    border-radius: 8px;
+    background: transparent !important;
+    color: var(--font-color) !important;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    white-space: nowrap;
+    cursor: default;
+    transition:
+        color 0.18s ease,
+        background-color 0.24s ease;
+}
+
+.plugin-common-menu .menu-item:hover,
+.plugin-common-menu .menu-item.active,
+.plugin-common-menu .menu-item.selected {
+    background: rgba(217, 119, 87, 0.055) !important;
+    color: var(--font-color) !important;
+    transform: none !important;
+}
+
+/*5. 顶部标签栏*/
+#plugin-window-tab {
+    left: 0 !important;
+    color: var(--sidebar-font-color);
+    border-bottom: 0 !important;
+    box-shadow: none !important;
+}
+
+body.pin-outline #plugin-window-tab {
+    left: calc(var(--sidebar-width) + 14px) !important;
+    width: calc(100vw - var(--sidebar-width) - 14px) !important;
+}
+
+#plugin-window-tab::before,
+#plugin-window-tab::after,
+#plugin-window-tab .tab-bar::before,
+#plugin-window-tab .tab-bar::after {
+    display: none !important;
+    border-bottom: 0 !important;
+    box-shadow: none !important;
+}
+
+#plugin-window-tab .tab-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 42px;
+    padding: 6px 12px 6px 14px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 0 !important;
+    box-shadow: none !important;
+}
+
+#plugin-window-tab .tab-bar::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+    display: none !important;
+}
+
+#plugin-window-tab .tab-bar::-webkit-scrollbar-thumb,
+#plugin-window-tab .tab-bar:hover::-webkit-scrollbar-thumb {
+    visibility: hidden !important;
+    background: transparent !important;
+}
+
+body.pin-outline #plugin-window-tab .tab-bar {
+    width: 100% !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+
+#plugin-window-tab .tab-wrapper {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 7px;
+    align-items: center;
+    width: auto !important;
+    max-width: none !important;
+    min-width: max-content;
+    overflow: visible;
+    border-bottom: 0 !important;
+    box-shadow: none !important;
+}
+
+#plugin-window-tab .tab-container {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    position: relative;
+    height: 31px;
+    min-width: 92px;
+    max-width: 210px;
+    padding: 0 30px 0 15px !important;
+    border: 0.5px solid rgba(31, 30, 29, 0.10) !important;
+    border-radius: 999px !important;
+    background: rgba(255, 255, 255, 0.34) !important;
+    box-shadow:
+        0 9px 20px -18px rgba(31, 30, 29, 0.34),
+        inset 0 1px 0 rgba(255, 255, 255, 0.62);
+    color: var(--sidebar-font-color) !important;
+    overflow: hidden;
+    transition:
+        background-color 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        color 0.18s ease,
+        transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#plugin-window-tab .tab-container:hover {
+    background: rgba(250, 249, 245, 0.86) !important;
+    border-color: rgba(217, 119, 87, 0.18) !important;
+    color: var(--sidebar-font-color) !important;
+    transform: translateY(-1px);
+    box-shadow:
+        0 12px 26px -20px rgba(31, 30, 29, 0.42),
+        inset 0 1px 0 rgba(255, 255, 255, 0.78);
+}
+
+#plugin-window-tab .tab-container.active {
+    background: rgba(250, 249, 245, 0.96) !important;
+    border-color: rgba(217, 119, 87, 0.28) !important;
+    color: #D97757 !important;
+    box-shadow:
+        0 14px 30px -22px rgba(31, 30, 29, 0.44),
+        inset 0 1px 0 rgba(255, 255, 255, 0.82);
+}
+
+#plugin-window-tab .active-indicator {
+    display: none !important;
+}
+
+#plugin-window-tab .tab-container.active .active-indicator {
+    display: none !important;
+}
+
+#plugin-window-tab .window-tab-name {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 13px;
+    font-weight: var(--sidebar-font-weight);
+    line-height: 31px;
+}
+
+#plugin-window-tab .tab-container:hover .window-tab-name {
+    color: var(--sidebar-font-color) !important;
+    font-weight: var(--sidebar-font-weight) !important;
+}
+
+#plugin-window-tab .tab-container.active .window-tab-name,
+#plugin-window-tab .tab-container.active:hover .window-tab-name {
+    color: #D97757 !important;
+    font-weight: var(--sidebar-font-weight) !important;
+}
+
+#plugin-window-tab .close-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 2;
+    top: 6px;
+    right: 8px;
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    opacity: 0.58;
+    transition:
+        background-color 0.16s ease,
+        opacity 0.16s ease;
+}
+
+#plugin-window-tab .close-button:hover {
+    background: rgba(31, 30, 29, 0.08) !important;
+    opacity: 1;
+}
+
+#plugin-window-tab .add-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 31px;
+    width: 31px;
+    height: 31px;
+    margin-left: 8px;
+    padding-left: 0 !important;
+    border: 0.5px solid rgba(31, 30, 29, 0.10) !important;
+    border-radius: 999px !important;
+    background: rgba(255, 255, 255, 0.30) !important;
+    color: var(--sidebar-font-color) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.58);
+    transition:
+        background-color 0.18s ease,
+        border-color 0.18s ease,
+        color 0.18s ease,
+        transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#plugin-window-tab .add-button:hover {
+    background: transparent !important;
+    border-color: rgba(217, 119, 87, 0.20) !important;
+    color: var(--font-color) !important;
+    transform: translateY(-1px);
+}
+
+#plugin-window-tab .add-button:hover .add-icon {
+    background: transparent !important;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+    .plugin-common-menu.show,
+    #plugin-window-tab .tab-container,
+    #plugin-window-tab .active-indicator,
+    #plugin-window-tab .add-button {
+        animation: none;
+        transition: none;
+    }
+}
+
+
+/*------------- 源码模式 ------------*/
+/* 切换源码模式按钮的背景 */
+.typora-sourceview-on #toggle-sourceview-btn {
+    background: transparent !important;
+}
+
+/* 源码模式激活行背景 */
+.typora-sourceview-on .CodeMirror-activeline-background {
+    background-color: rgba(142, 164, 255, 0.10) !important;
+    animation: source-active-line-fade-in 90ms ease-out;
+    will-change: opacity;
+}
+
+/* 源码模式选区背景 */
+.typora-sourceview-on .CodeMirror-selected,
+.typora-sourceview-on .CodeMirror-focused .CodeMirror-selected {
+    background-color: var(--theme-selection-background) !important;
+}
+
+.typora-sourceview-on .CodeMirror-selectedtext,
+.typora-sourceview-on .CodeMirror-line::selection,
+.typora-sourceview-on .CodeMirror-line > span::selection,
+.typora-sourceview-on .CodeMirror-line > span > span::selection {
+    background: transparent !important;
+    text-shadow: none !important;
+}
+
+@keyframes source-active-line-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.cm-s-typora-default .cm-header, .cm-s-typora-default .cm-property {
+    color:#D97757;
+}
+
+.cm-s-typora-default .cm-header1:not(.cm-atom):not(.cm-s-inner) {
+    font-size: 1.8rem;
 }
