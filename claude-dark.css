@@ -2701,11 +2701,12 @@ mjx-container {
 }
 
 .outline-item>.outline-expander:before {
-    margin-top: 10px;
+    margin-top: 8.5px;
     margin-left: -2px;
     background: transparent;
     padding: 0 4px 0 2px;
     font-size: 10px;
+    color: var(--LOGO-color);
 }
 
 /* 标题文字标签 */
