@@ -39,14 +39,6 @@
 }
 
 @font-face {
-    font-family: "UnifrakturMaguntia";
-    src: url("./claude-fonts/UnifrakturMaguntia-Regular.ttf") format("truetype");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
     font-family: "Source Han Sans SC";
     src: url("./claude-fonts/SourceHanSansSC-Regular.otf") format("opentype");
     font-weight: 400;
@@ -127,6 +119,11 @@ table {
     cursor: default;
 }
 
+sup.md-footnote,
+.code-tooltip.md-tooltip-remove.md-hover-tip.md-f-tooltip {
+    cursor: text;
+}
+
 :root {
     /* --- color-main --- */
     --bg-color: #faf9f5;
@@ -134,10 +131,11 @@ table {
     --font-color: #141413;
     --border-color: #1f1e1d;
     --border-color-15: #1f1e1d26;
+    --border-clolor-25: #1f1e1d40;
     --border-color-30: #1f1e1d4d;
     --sidebar-font-color: #3d3d3a;
     --button-bg-color: #e8e6dc;
-    --bg-color-dark:#262624;
+    --bg-color-dark: #262624;
 
     /* color-search */
     --file-search-list-font-color: #3d3d3a;
@@ -168,7 +166,7 @@ table {
     --code-bg-color: #3d3d3a0d;
     --code-font-color: #8a2424;
     --code-border: #1f1e1d26;
-    
+
     /* Blockquote */
     --quote-font-color: #3d3d3a;
     --quote-boder: #1f1e1d1a;
@@ -185,7 +183,7 @@ table {
     --box-shadow-userinput: 0 18px 48px -28px rgb(31 30 29 / 32%), 0 8px 18px -14px rgb(31 30 29 / 18%), 0 0 0 0.5px hsla(var(--border-300) / 0.18);
     --box-shadow-userinput-hover: 0 22px 58px -30px rgb(31 30 29 / 38%), 0 10px 22px -15px rgb(31 30 29 / 22%), 0 0 0 0.5px hsla(var(--border-200) / 0.28);
     --box-shadow-userinput-focus: 0 24px 64px -28px rgb(31 30 29 / 44%), 0 12px 26px -14px rgb(31 30 29 / 24%), 0 0 0 0.5px hsla(var(--border-200) / 0.32);
-    
+
     /*--- Font ---*/
     --font-serif: "Anthropic Serif Web Text", Georgia, "Times New Roman", "Noto Serif SC";
     --font-sans: "Anthropic Sans Web Text", "Noto Sans SC", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -244,6 +242,7 @@ body {
     margin: 0 !important;
     opacity: 0 !important;
 }
+
 #write .md-pair-s.md-expand {
     padding: 0 !important;
 }
@@ -410,9 +409,11 @@ body {
 .dropdown-menu .menu-style-btn .ty-icon {
     color: rgba(20, 20, 19, 0.62);
 }
+
 .dropdown-menu .menu-style-btn:hover .ty-icon {
     color: var(--font-color);
 }
+
 .dropdown-menu .menu-style-btn.disabled .ty-icon {
     color: rgba(20, 20, 19, 0.28);
 }
@@ -1356,20 +1357,13 @@ sup.md-footnote {
         color 0.12s ease-out;
 }
 
-sup.md-footnote:hover {
-    color: #71301d !important;
-    background: transparent !important;
-    border-color: transparent !important;
-}
-
-/* 脚注悬浮提示也使用 公式块预览区 的 code-tooltip 结构，此处可避免继承代码块语言标签定位 */
+/* 脚注悬浮提示区和行内代码预览区 */
 .code-tooltip.md-hover-tip {
     padding: 0 !important;
-    background: #fffaf1 !important;
+    background: var(--bg-color) !important;
     color: #2d2925 !important;
-    border: 1px solid #d9775740 !important;
+    border: 0.5px solid var(--border-clolor-25) !important;
     border-radius: 8px !important;
-    box-shadow: 0 10px 28px rgb(70 44 22 / 16%), 0 2px 6px rgb(70 44 22 / 10%) !important;
     max-width: min(32rem, calc(100vw - 48px));
     opacity: 0;
     transform: translateY(-2px);
@@ -1383,16 +1377,16 @@ sup.md-footnote:hover {
 
 .md-hover-tip .code-tooltip-content {
     padding: 0.7rem 0.85rem !important;
+    margin-top: 0 !important;
     line-height: 1.45 !important;
     text-align: left !important;
     border-radius: inherit !important;
     background: inherit !important;
+    font-family: var(--font-sans) !important;
 }
 
-.md-hover-tip .md-arrow::after {
-    background: #fffaf1 !important;
-    border-left: 1px solid #d9775740 !important;
-    border-top: 1px solid #d9775740 !important;
+.md-hover-tip .md-arrow {
+    display: none !important;
 }
 
 @keyframes claude-footnote-tip-in {
@@ -1478,6 +1472,7 @@ mjx-container {
 .md-math-block:hover .md-math-container {
     background-color: var(--hover-color) !important;
 }
+
 /* 添加一点渐入渐出动画 */
 .md-math-block .md-math-container {
     transition: background-color 0.2s ease-in-out !important;
@@ -1725,12 +1720,6 @@ mjx-container {
    侧边栏
    ========================================= */
 
-/* 去除展开侧边栏和开启源码模式的按钮的背景 */
-.footer-item:hover,
-.sidebar-footer-item:hover {
-    background: transparent;
-}
-
 /* 去除侧边栏拖拽区背景 */
 #typora-sidebar-resizer:not(.dragging) .typora-sidebar-resizer-bar:hover {
     background: none !important;
@@ -1790,6 +1779,13 @@ mjx-container {
 }
 
 /* ---------- 底栏 ---------- */
+
+/* 去除底栏按钮的hover背景并开启源码模式等按钮的图标hover背景 */
+.footer-item:hover,
+.sidebar-footer-item:hover {
+    background: transparent;
+    color: var(--LOGO-color) !important;
+}
 
 .ty-add:before {
     color: #1f1e1d80;
@@ -2103,17 +2099,28 @@ mjx-container {
     margin-right: 6.5px;
 }
 
+/* 文件夹空闲状态时的图标 */
+.file-library-node[data-has-sub="false"][data-is-directory="true"]>.file-node-content>.file-node-icon.fa-folder:before {
+    content: "\f114";
+    opacity: 0.5;
+}
+
+/* 文件夹图标 */
+.file-node-icon.fa-folder::before {
+    content: "\f114";
+}
+
+/* 已展开的文件夹图标 */
+.file-node-expanded>.file-node-content>.file-node-icon.fa-folder::before {
+    content: "\f115";
+}
+
 /* 隐藏md后缀 */
 .file-node-title-ext-part {
     display: none;
 }
 
-/* 文件夹空闲状态时的图标 */
-.file-library-node[data-has-sub="false"][data-is-directory="true"]>.file-node-content>.file-node-icon.fa-folder:before {
-    content: "\f114";
-}
-
-/* 移除小三角 */
+/* 移除文件夹左边的小三角 */
 .file-node-open-state {
     display: none !important;
 }
@@ -2265,17 +2272,12 @@ mjx-container {
 
 /* 文件树节点激活项的字体颜色 */
 .file-library-node.file-tree-node.file-library-file-node.active .file-node-title {
-    color: #D97757 !important;
-}
-
-@font-face {
-    font-family: "ClaudeRootCJKLogo";
-    src: local("FZQingKeBenYueSongS-R-GB"),
-        url("./claude-fonts/FZQingKeBenYueSongS-R-GB.ttf") format("truetype");
-    unicode-range: U+2E80-2EFF, U+3000-303F, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF, U+FF00-FFEF;
+    /* color: #D97757 !important; */
+    font-weight: 500 !important;
 }
 
 /* 根节点 */
+
 #file-library-tree>div:first-child>div:nth-child(2)>i:first-child {
     display: none;
 }
@@ -2284,14 +2286,16 @@ mjx-container {
     height: 44px;
 }
 
+/* 根节点字体 */
 #file-library-tree>div:first-child>div:nth-child(2) {
     font-size: 24px;
-    font-family: "ClaudeRootCJKLogo", UnifrakturMaguntia;
+    font-family: var(--font-serif);
     line-height: 30px;
     padding-top: 10px;
+    color: var(--LOGO-color)
 }
 
-/* --- 节点图标 --- */
+/* --- 节点标题及图标 --- */
 
 #file-library-tree>.file-tree-node.file-node-root>.file-node-children>.file-tree-node {
     --claude-folder-expanded-title-color: #D97757;
@@ -2328,18 +2332,22 @@ mjx-container {
     color: #8F8A83 !important;
 }
 
-#file-library-tree .file-tree-node:not(.file-node-root):not(.file-library-file-node):has(.file-library-file-node.active)>.file-node-content>.file-node-title {
-    color: var(--claude-folder-expanded-title-color) !important;
+#file-library-tree .file-tree-node:not(.file-node-root):not(.file-library-file-node):has(.file-library-file-node.active)>.file-node-content>.file-node-title::after {
+    content: "\2B98";
+    display: inline-block;
+    color: var(--LOGO-color);
+    margin-left: 8px;
+    font-size: 13px;
+    line-height: 0;
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+    opacity: 0.85;
 }
 
 #file-library-tree .file-library-node[data-is-directory="true"]>.file-node-content .file-node-icon .fa-folder::before {
     display: inline-block;
     transform: translateY(0px);
-}
-
-/* 文件夹节点的小三角 */
-#file-library-tree .file-library-node[data-is-directory="true"]>.file-node-content .file-node-open-state i {
-    color: #875d50;
 }
 
 /* 文件节点的图标 */
@@ -2627,6 +2635,13 @@ mjx-container {
     overflow: auto !important;
     padding: 14px 14px 14px 17px;
     font-size: 14px !important;
+    scrollbar-width: none !important;
+}
+
+.outline-content::-webkit-scrollbar,
+#outline-content::-webkit-scrollbar {
+    width: 0 !important;
+    display: none !important;
 }
 
 .os-windows .outline-content {
@@ -2696,7 +2711,7 @@ mjx-container {
     max-width: calc(100% - 16px);
     vertical-align: top;
     border-radius: 4px;
-    padding: 7px 7px 7px 8px;
+    padding: 7px 7px 7px 12px;
     font-size: 14px !important;
     line-height: 1.2;
     transition: color 0.12s ease-out;
@@ -2714,19 +2729,11 @@ mjx-container {
     padding-left: 0 !important;
 }
 
-/* 节点处于展开状态时，标题文字的缩进微调 */
-.outline-item-open>.outline-item>.outline-label {
-    padding-left: 11px;
-}
+/* 节点处于展开状态时，去除了原本会导致文字向右位移和挤压的缩进微调 */
 
 /* 非折叠模式下，展开节点的标题文字缩进归零 */
 .no-collapse-outline .outline-item-open>.outline-item>.outline-label {
     padding-left: 0 !important;
-}
-
-/* 当前激活节点的缩进微调 */
-.outline-item-open>.outline-item-active>.outline-label {
-    padding-left: 12px;
 }
 
 /* --- 树状结构连线绘制 --- */
@@ -2739,20 +2746,38 @@ mjx-container {
     left: -10px;
     top: -27.5px;
     width: 10px;
-    height: calc(50% + 28px);
+    height: 43px;
     background: transparent;
     border-left: 1px solid var(--LOGO-color);
     border-bottom: 1px solid var(--LOGO-color);
+}
+
+/* 补充向下的垂直连接线，覆盖多行标题产生的高度断层 */
+.outline-content li .outline-item::after {
+    content: '';
+    position: absolute;
+    z-index: 38;
+    left: -10px;
+    top: 15.5px;
+    width: 1px;
+    height: calc(100% - 15.5px + 3px);
+    background: transparent;
+    border-left: 1px solid var(--LOGO-color);
 }
 
 .os-windows .outline-content li .outline-item::before {
     top: -28.5px;
 }
 
+.os-windows .outline-content li .outline-item::after {
+    top: 14.5px;
+    height: calc(100% - 14.5px + 3px);
+}
+
 /* 顶级第一个节点的树状线特殊处理 (只有下半部分) */
 .outline-content>li:first-of-type>.outline-item::before {
-    top: calc(50% - 1px);
-    height: calc(50% + 15px);
+    top: 14px;
+    height: 100%;
     border-left: 1px solid var(--LOGO-color);
     border-top: 1px solid var(--LOGO-color);
     border-bottom: none;
@@ -2764,25 +2789,31 @@ mjx-container {
 .outline-children>li:first-child>.outline-item::before,
 .outline-content>li:nth-child(2)>.outline-item::before {
     top: -11px;
-    height: calc(50% + 12px);
+    height: 26.5px;
 }
 
 .os-windows .outline-children>li:first-child>.outline-item::before,
 .os-windows .outline-content>li:nth-child(2)>.outline-item::before {
     top: -13px;
-    height: calc(50% + 13px);
+    height: 28.5px;
 }
 
 .no-collapse-outline .outline-children>li:first-child>.outline-item::before,
 .no-collapse-outline .outline-content>li:nth-child(2)>.outline-item::before {
     top: -8px;
-    height: calc(50% + 8px);
+    height: 23.5px;
 }
 
 /* 列表最后项的连线左下角增加微小圆角 */
 .outline-content>li:last-child>.outline-item::before,
 .outline-children>li:last-child>.outline-item::before {
     border-bottom-left-radius: 3px;
+}
+
+/* 列表最后项不需要向下的连接线 */
+.outline-content>li:last-child>.outline-item::after,
+.outline-children>li:last-child>.outline-item::after {
+    display: none;
 }
 
 /* 画出贯穿父节点下属所有子节点的垂直主干线 (I型线) */
@@ -2823,25 +2854,7 @@ mjx-container {
 }
 
 /* --- 悬停与激活状态下的动态效果 --- */
-
-/* 节点处于激活状态时，缩短水平线 */
-li>.outline-item-active:before,
-.outline-item-active>.outline-item::before {
-    width: 7px !important;
-}
-
-/* 激活节点向右移动并增加左内边距 */
-li>.outline-item-active,
-.outline-item-active>.outline-item {
-    margin-left: 4px !important;
-    padding-left: 7px !important;
-}
-
-/* 调整激活节点水平连接线的位置保持相连 */
-li>.outline-item-active::before,
-.outline-item-active>.outline-item::before {
-    left: -7px !important;
-}
+/* (移除了导致文字挤压和连接线错位的激活状态偏移 hack) */
 
 /* 悬停时只改变标题文字颜色，激活节点仍保留高亮 */
 .outline-item:hover,
@@ -2861,7 +2874,7 @@ li>.outline-item-active::before,
 .outline-item-active:hover>.outline-label,
 .outline-item-active>.outline-item:hover,
 .outline-item-active>.outline-item:hover>.outline-label {
-    background: var(--hover-color) !important;
+    background: transparent !important;
 }
 
 .outline-item-active>.outline-label,
@@ -3777,11 +3790,43 @@ li>.outline-item-active::before,
    Plugin
    ========================================= */
 
-/*1. 插件按钮与查找替换*/
+/*1. 插件按钮*/
 #plugin-action-buttons .action-item {
     color: var(--sidebar-font-color) !important;
-    border-color: var(--border-color-15) !important;
-    border-width: 0.5px !important;
+    background: rgba(255, 255, 255, 0.45) !important;
+    border: 0.5px solid rgba(31, 30, 29, 0.12) !important;
+    border-radius: 6px !important;
+    box-shadow:
+        0 4px 12px -4px rgba(31, 30, 29, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(8px);
+    transition:
+        background-color 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        color 0.18s ease,
+        transform 0.18s cubic-bezier(0.22, 1, 0.36, 1) !important;
+
+    cursor: default !important;
+}
+
+#plugin-action-buttons .action-item:hover {
+    background: rgba(255, 255, 255, 0.75) !important;
+    border-color: rgba(31, 30, 29, 0.18) !important;
+    color: var(--LOGO-color) !important;
+    transform: scale(1) translateY(0) !important;
+    box-shadow:
+        0 5px 14px -4px rgba(31, 30, 29, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+#plugin-action-buttons .action-item:active {
+    background: rgba(240, 239, 235, 0.85) !important;
+    box-shadow:
+        0 1px 3px -1px rgba(31, 30, 29, 0.08),
+        inset 0 1px 2px rgba(31, 30, 29, 0.04) !important;
+    transform: scale(0.99) !important;
+    transition-duration: 0.05s !important;
 }
 
 /*2. 文件树计数*/
@@ -4065,9 +4110,10 @@ body.pin-outline #plugin-window-tab .tab-bar {
    源码模式
    ========================================= */
 
-/* 切换源码模式按钮的背景 */
+/* 关闭源码模式按钮的背景 */
 .typora-sourceview-on #toggle-sourceview-btn {
     background: transparent !important;
+    color: #d95575 !important;
 }
 
 /* 源码模式激活行背景 */
